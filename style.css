@@ -152,23 +152,26 @@ header nav ul li button:active{
     text-align: center;
     padding-top: 100px;
     padding-bottom: 40px;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
     margin: 0 auto;
-    background: linear-gradient(135deg, #dd8cae, rgb(239, 223, 226));
+    background: linear-gradient(135deg, #f3e2e9, rgb(239, 223, 226));
     animation: fadeIn 1.2s ease-in-out;
     color: #ffffff;
 }
 
 .home h2 {
-    font-size: 2.3rem;
+    font-size: 2rem;
     color: #ffffff;
-    font-weight: 900;
+    font-weight: 1000;
+    line-height: 1.2;
     letter-spacing: 1px;
     text-transform: capitalize;
     background: linear-gradient(90deg, rgb(64, 64, 199), rgb(139, 34, 139));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    width: 100%;
+    max-width: 900px;
 }
 
 .home img {
@@ -207,6 +210,7 @@ header nav ul li button:active{
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.5s;
     position: relative;
+    flex-direction: column;
     overflow: hidden;
 }
 
@@ -252,75 +256,91 @@ header nav ul li button:active{
     -webkit-text-fill-color: transparent;
 }
 
-.home button {
-    background: linear-gradient(90deg, #ff758c, #ffd452);
-    color: rgb(179, 48, 0);
-    text-shadow: 1px 1px 1px white;
+/* Styling for .home ul li button */
+.home ul li button {
+    background: rgba(255, 255, 255, 0.1); /* Transparent Glass Effect */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Frosted Border */
+    border-radius: 16px; /* Smooth Rounded Corners */
+    color: black; /* Text Color */
+    font-family: 'Poppins', sans-serif; /* Clean Modern Font */
+    font-size: 1.1rem; /* Slightly Larger Font Size */
+    font-weight: 900; /* Semi-Bold Text */
+    padding: 14px 28px; /* Comfortable Padding */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.2); /* Advanced Glass-Like Shadows */
+    backdrop-filter: blur(10px); /* Blur Effect for Glassmorphism */
+    cursor: pointer; /* Pointer Cursor */
+    transition: all 0.4s ease, box-shadow 0.2s ease; /* Smooth Transition for Effects */
+    position: relative; /* For Inner Glow Effect */
+    overflow: hidden; /* Clip Overflow for Hover Effect */
+    letter-spacing: 1px; /* Improved Readability */
+    text-transform: uppercase; /* Stylish Uppercase Text */
     border: none;
-    padding: 20px;
-    border-radius: 15px;
-    font-size: 1.2rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-    font-family: 'Times New Roman', Times, serif;
-    cursor: pointer;
-    transition: background 0.5s ease, transform 0.5s ease, box-shadow 0.5s;
-    margin-top: 40px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+    white-space: nowrap;
 }
 
-.home button:hover {
-    background: linear-gradient(90deg, #f39c12, #8e44ad);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+/* Gradient Animation on Hover */
+.home ul li button:hover {
+    background: linear-gradient(120deg, rgba(98, 0, 234, 0.8), rgba(0, 204, 255, 0.8));
+    color: white;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 30px rgba(98, 0, 234, 0.5); /* Enhanced Glow on Hover */
+    transform: translateY(-5px) ; /* Lift and Scale Effect */
 }
 
-.home button::before {
-    content: '';
+/* Inner Glow Effect */
+.home ul li button::before {
+    content: "";
     position: absolute;
-    top: 0;
-    left: -100%;
+    top: -50%;
+    left: -50%;
     width: 200%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: skewX(-45deg);
-    transition: left 0.6s ease;
-    z-index: 1;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 70%);
+    transform: scale(0);
+    transition: transform 0.5s ease;
+    z-index: 0;
 }
 
-.home button:hover::before {
-    left: 100%;
+/* Hover Animation for Inner Glow */
+.home ul li button:hover::before {
+    transform: scale(1);
 }
 
-.home button span {
-    position: relative;
-    z-index: 2;
+/* Active State */
+.home ul li button:active {
+    transform: translateY(2px) scale(1.05); /* Subtle Push-In Effect */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(98, 0, 234, 0.5); /* Reduced Glow */
 }
+
+/* Focus State (Accessibility) */
+.home ul li button:focus {
+    outline: 3px solid rgba(98, 0, 234, 0.8); /* Glowing Outline */
+    outline-offset: 3px;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    .home ul li button {
+        font-size: 1rem; /* Adjust Font Size */
+        padding: 12px 20px; /* Adjust Padding */
+    }
+}
+
+
 
 @media (max-width: 768px) {
     .home h2 {
-        font-size: 1.7rem;
+        font-size: 1.5rem;
     }
 
     .home ul {
         grid-template-columns: 1fr;
-    }
-
-    .home button {
-        width: 100%;
     }
 }
 
 @media (max-width: 480px) {
     .home h2 {
         font-size: 1.3rem;
-    }
-
-    .home ul li {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
     }
 
     .home ul li img {
