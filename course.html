@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lomi Learning Path</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+body{
+ padding: 0;
+ margin: 0;
+ box-sizing: border-box;
+}
+header{
+ background: linear-gradient(90deg, #f18d84, #ea8465);
+ width: 100%;
+ position: fixed;
+ top: 0;
+ display: flex;
+ flex-direction: column;
+ text-align: center;
+ z-index: 1000;
+}
+header h1{
+ font-size: 2.3rem;
+ margin: 0;
+ letter-spacing: 6px;
+ color: rgb(63, 63, 234);
+ font-weight: 900;
+ text-shadow: 1px 1px white;
+ font-family: "Jersey 10", serif;
+}
+header p{
+ margin-top: 0%;
+ letter-spacing: 2px;
+ text-transform: capitalize;
+ font-size: 1rem;
+ font-family: "DM Serif Text", serif;
+ font-weight: 700;
+ color: rgb(245, 231, 231);
+}
+.search-container{
+ padding-top: 160px;
+ display: flex;
+ justify-content: center;
+ padding-bottom: 30px;
+ background-color: #d8cac6;
+}
+.search-container input{
+ padding: 10px;
+ font-size: 1.2rem;
+ width: 80%;
+ border-radius: 20px;
+ border: none;
+ outline: none;
+ letter-spacing: 2px;
+ font-weight: 700;
+ text-align: center;
+ box-shadow: 0px 5px 0px;
+ transition: all 0.4s ease-in-out;
+}
+.search-container input:active{
+ box-shadow: 0px 0px 0px;
+ transition: 200ms;
+}
+.search-container button{
+ padding: 0%;
+ border: none;
+ border-radius: 10px;
+ cursor: pointer;
+ margin-left: 10px;
+ box-shadow: 0px 5px 0px;
+ transition: all 0.4s ease-in-out;
+}
+.search-container button:active{
+ box-shadow: 0px 0px 0px;
+ transition: 200ms;
+}
+.search-container button img{
+ width: 40px;
+ border-radius: 10px;
+}
+
+.courses{
+ padding: 10px;
+ display: flex;
+ text-align: center;
+ background: linear-gradient(45deg,rgb(231, 196, 196),white);
+ justify-content: center;
+}
+.courses-container{
+ border: 1px solid rgb(195, 27, 195);
+ padding: 10px;
+ width: 90%;
+ border-radius: 10px;
+ display: grid;
+ grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+ gap: 10px;
+}
+#heading{
+    font-family: Arial;
+    font-weight: 900;
+    padding-left: 10px;
+    text-transform: uppercase;
+    text-align: start;
+    letter-spacing: 5px;
+    font-size: 1.6rem;
+    color: rgb(221, 43, 221);
+    text-shadow: 1px 1px rgb(72, 72, 233);
+}
+.course-card h1{
+    padding-left: 10px;
+    color: rgb(100, 100, 235);
+    letter-spacing: 2px;
+    display: flex;
+}
+.course-card p{
+    color: rgb(68, 59, 59);
+    letter-spacing: 1px;
+    font-weight: 500;
+    text-transform: capitalize;
+    padding: 10px;
+    font-size: 1rem;
+}
+.course-card{
+ background-color: white;
+ border-radius: 10px;
+ padding-bottom:10px ;
+ box-shadow: 0px -2px 0px 0px;
+}
+.img-container{
+ width: 100%;
+ height: 250px;
+ display: flex;
+ overflow: hidden;
+ border-radius: 10px;
+}
+.course-card  img{
+ width: 100%;
+ cursor: pointer;
+ transition: transform 0.8s ease-in-out;
+}
+.no-courses {
+    text-align: center;
+    font-size: 1.2rem;
+    color: red;
+    margin-top: 20px;
+    display: none;
+}
+.course-card button{
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    letter-spacing: 3px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    color: white;
+    cursor: pointer;
+    background-color: #ff6aff;
+    box-shadow: 0px -5px 0px black;
+    transition: all 0.4s ease-in-out;
+}
+.course-card button:active{
+    background-color: rgb(128, 3, 128);
+    box-shadow: 0px 0px 0px ;
+    transform: translateY(-5px);
+    transition: 200ms;
+}
+svg{
+    width: 30px;
+    height: 15px;
+}
+@media(min-width:468px){
+    header h1{
+        font-size: 2.8rem;
+    }
+    header p{
+        font-size: 1.3rem;
+    }
+    .courses-container{
+        grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+    }
+    .course-card h1{
+        font-size: 2rem;
+    }
+    .course-card p{
+        font-size: 1.2rem;
+    }
+}
+@media(max-width:468px){
+    .img-container{
+        height: 200px;
+    }
+    .courses-container{
+        grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    }
+}
+/* Style the scrollbar track (the background of the scrollbar) */
+::-webkit-scrollbar {
+    width: 10px;  /* Width of the scrollbar */
+    height: 10px; /* Height of the horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #e0e0e0; /* Light gray background */
+    border-radius: 5px;
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+    background: #007bff; /* Blue thumb */
+    border-radius: 5px;
+    border: 2px solid #ffffff; /* White border around the thumb */
+}
+
+/* Hover effect for the scrollbar thumb */
+::-webkit-scrollbar-thumb:hover {
+    background: #0056b3; /* Darker blue on hover */
+}
+
+/* Optional: Style the horizontal scrollbar */
+::-webkit-scrollbar-horizontal {
+    height: 12px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    background: #007bff;
+    border-radius: 5px;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Lomi Learning</h1>
+        <p>Every learning path is chosen by students</p>
+    </header>
+
+    <div class="search-container">
+        <input id="search-input" type="search" placeholder="Search Courses...">
+        <button type="button" id="search-button"><img src="search.jpg" alt="Search"></button>
+    </div>
+    <h1 id="heading">Courses</h1>
+    <section class="courses">
+        <div class="courses-container" id="courses-container">
+            <div class="course-card" data-name="python">
+                <div class="img-container">
+                    <img src="python.jpg" alt="Python Course">
+                </div>
+                <h1>Python</h1>
+                <p>Python is one of the top languages used in various fields like web development, app development, AI, and ML, making it an essential skill for building your future.</p>
+                <button>Start Learning<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg></button>
+            </div>
+            <div class="course-card" data-name="html">
+                <div class="img-container">
+                    <img src="html.jpg" alt="HTML Course">
+                </div>
+                <h1>HTML</h1>
+                <p>Learn the basics of building websites using HTML, the standard markup language for creating web pages.</p>
+                <button onclick="window.location.href='https://lomithings.club';">Start Learning<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg></button>
+            </div>
+            <div class="course-card" data-name="video editing">
+                <div class="img-container">
+                    <img src="videoediting.jpg" alt="Video Editing Course">
+                </div>
+                <h1>Video Editing</h1>
+                <p>Master the art of video editing using top tools and techniques to create professional-quality content.</p>
+                <button>Start Learning<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg></button>
+            </div>
+            <div class="course-card" data-name="java">
+                <div class="img-container">
+                    <img src="java.jpg" alt="Java Course">
+                </div>
+                <h1>Java</h1>
+                <p>Java is a versatile programming language widely used in web development, app development, and enterprise systems.</p>
+                <button>Start Learning<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg></button>
+            </div>
+            <div class="no-courses" id="no-courses">No courses available</div>
+        </div>
+    </section>
+
+    <section class="certificate">
+        <h1></h1>
+    </section>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const coursesContainer = document.getElementById('courses-container');
+        const courseCards = Array.from(coursesContainer.getElementsByClassName('course-card'));
+        const noCourses = document.getElementById('no-courses');
+
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.trim().toLowerCase();
+            let matches = [];
+
+            courseCards.forEach(card => {
+                const courseName = card.getAttribute('data-name').toLowerCase();
+                if (courseName.includes(query)) {
+                    matches.push(card);
+                }
+                card.style.display = courseName.includes(query) ? 'block' : 'none';
+            });
+
+            // If there are matches, move them to the top
+            if (matches.length > 0) {
+                noCourses.style.display = 'none';
+                matches.forEach(card => coursesContainer.appendChild(card));
+            } else {
+                noCourses.style.display = 'block';
+            }
+        });
+
+        
+    </script>
+</body>
+</html>
