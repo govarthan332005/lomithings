@@ -182,8 +182,9 @@ svg{
    letter-spacing: 2px;
    font-weight: 900;
    text-transform: capitalize;
-   color: rgb(62, 3, 107);
-   text-shadow: 1px 1px 1px white;
+   background: linear-gradient(140deg,rgb(255, 255, 255),rgb(222, 112, 222),rgb(255, 255, 255));
+   -webkit-text-fill-color: transparent;
+   -webkit-background-clip: text;
    font-size: 1.4rem;
    line-height: 1.7;
 }
