@@ -30,3 +30,8 @@ function scrollToTop() {
 // Add event listeners
 window.addEventListener('scroll', toggleScrollToTopBtn);
 scrollToTopBtn.addEventListener('click', scrollToTop);
+
+
+function course() {
+  window.open('course.html', '_blank'); // Opens course.html in a new tab
+}
