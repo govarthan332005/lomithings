@@ -1,0 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+*{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+.background-color{
+    position:fixed;
+    background-color: rgb(85, 85, 239);
+    height:100vh;
+    width: 100%;
+}
+.color1{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 40%;
+    background-color: rgb(147, 147, 255);
+    border-bottom-left-radius: 90%;
+}
+
+
+
+.header{
+    position:fixed;
+    top: 0%;
+    display: flex;
+    padding: 10px;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(255, 254, 254);
+    width:100%;
+    height: 70px;
+    max-height: 80px;
+    z-index: 1000;
+}
+.header h1{
+    display:start;
+    font-family: "Lilita One", serif;
+    letter-spacing: 3px;
+    color: rgb(0, 0, 0);
+    font-size: 1.7rem;
+    text-transform: uppercase;
+}
+.menu{
+    display: flex;
+    border: none;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.858);
+}
+.menu svg{
+    width: 40px;
+    height: 60px;
+}
+
+
+.sidebar{
+    position:fixed;
+    top:60px;
+    right: 10px;
+    width: 190px;
+    padding: 10px;
+    background-color:white;
+    border-bottom-right-radius: 10px ;
+    border-bottom-left-radius: 10px ;
+    animation: slidein 0.6s ease-in-out;
+    z-index: 1000;
+}
+.sidebar-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+.sidebar-container button{
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-family: "Josefin Sans", serif;
+    color: white;
+    letter-spacing: 2px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-size: 900;
+    background-color: rgb(123, 123, 252);
+    transition: all 0.2s ease-in-out;
+}
+.sidebar-container button:active{
+    background-color: rgb(31, 31, 243);
+    transition: 200ms;
+}
+
+@keyframes slidein{
+    0%{
+        opacity: 0;
+    }
+    15%{
+        opacity: 0.2;
+    }
+    30%{
+        opacity: 0.4;
+    }
+    45%{
+        opacity: 0.6;
+    }
+    60%{
+        opacity: 0.7;
+    }
+    75%{
+        opacity: 0.8;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+
+.Tournaments-section {
+    position: relative;
+    margin: 0% auto;
+    width: 100%;
+    margin-top: 70px;
+    padding: 10px;
+}
+
+.tournament-card {
+    border: 3px solid white;
+    border-radius: 5px;
+    margin: 15px 0;
+    width:100%;
+}
+.tournament-image {
+    width: 100%;
+    border-radius: 5px;
+}
+.tournament-card h3{
+    color: white;
+    font-size: 400;
+    letter-spacing: 4px;
+    padding: 10px;
+    font-size: 1.6rem;
+    color: white;
+    font-family: "Abril Fatface", serif;
+}
+.tournament-card p{
+    padding: 7px;
+    font-size: 1.4rem;
+    color: white;
+    letter-spacing: 2px;
+    font-family: "Josefin Sans", serif;
+}
+.tournament-card strong{
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+.join-button {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 70%;
+    border-radius: 5px;
+    box-shadow: 1px 5px 1px white;
+    margin-bottom: 20px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+.join-button:active{
+    background-color: white;
+    color: black;
+    box-shadow: 0px 0px 0px white;
+    transition: 200ms;
+}
+.join-button.closed {
+    background-color: #dc3545;
+    font-size: 1.1rem;
+}
+
+
+
+
+
+
+
+.popup-content{
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+}
+.popup-content h2{
+      color: black;
+      font-size: 900;
+      font-family: "Anton", serif;
+      letter-spacing: 2px;
+      font-size: 1.2rem;
+      padding-bottom: 10px;
+} 
+.popup-content label{
+    font-family: "Exo 2", serif;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+.popup-content input{
+    margin: 5px;
+    padding: 10px;
+    outline-color: rgb(20, 20, 255);
+    box-shadow: 1px 5px 1px black;
+    width: 100%;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+.popup-content button{
+    margin: 15px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    font-family: "Exo 2", serif;
+    background-color: rgb(23, 23, 251);
+    box-shadow: 1px 5px 0px black;
+    transition: all 0.3s ease-in-out;
+}
+.popup-content button:active{
+    background-color: rgb(98, 98, 239);
+    transform: translateY(5px);
+    box-shadow: 0px 0px 0px black;
+    transition: 200ms;
+}
+
+
+
+
+.container {
+    position: relative;
+    margin-top: 70px;
+    max-width: 800px;
+  }
+  .container h2{
+    font-size: 1.4rem;
+    color: black;
+    letter-spacing: 2px;
+    font-weight: 900;
+    margin-top: 30px;
+    padding: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-transform: uppercase;
+  }
+  .result {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e3e6ea;
+  }
+  .result-header {
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    background: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    transition: background 0.3s;
+    margin-bottom: 0.5rem;
+  }
+  .result-header:hover {
+    background: #0056b3;
+  }
+  .winners-content {
+    overflow: hidden;
+    border: solid 1px #ddd;
+    max-height: 0;
+    transition: max-height 0.5s ease-out;
+    border-radius: 8px;
+    background: #fff;
+    padding: 0;
+  }
+
+  .winners-content.open {
+    max-height: 500px; /* Adjust for content */
+    transition: max-height 0.5s ease-in;
+    padding: 1rem;
+  }
+
+  .winners-content table {
+    width: 100%;
+    border-collapse: collapse;
+    border: solid 1px #ddd;
+    margin-top: 1rem;
+  }
+
+  .winners-content th, .winners-content td {
+    border: solid 1px #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .winners-content th {
+    background: #007bff;
+    color: #fff;
+  }
+
+  /* Responsive Scroll on Small Screens */
+  @media (max-width: 600px) {
+    .winners-content {
+      overflow-x: auto;
+      display: block;
+    }
+    
+    .winners-content table {
+      display: block;
+      width: 100%;
+      white-space: nowrap;
+    }
+  }
+
+
+
+
+
+
+.Rooms-section{
+    position: relative;
+    top: 70px;
+    height: 100vh;
+    width: 100%;
+}
+.Rooms-section h2{
+    font-size: 900;
+    letter-spacing: 3px;
+    font-size: 1.6rem;
+    padding: 20px;
+    text-transform: uppercase;
+}
+#roomsList p{
+    font-size: 1.6rem;
+    letter-spacing: 3px;
+    padding: 10px;
+    font-weight: 900;
+}
+
+@media(min-width:600px){
+    body{
+       display: none;
+    }
+}
