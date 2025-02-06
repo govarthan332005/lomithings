@@ -354,7 +354,27 @@
     font-size: 1.6rem;
     letter-spacing: 3px;
     padding: 10px;
+    text-transform: uppercase;
+    color: white;
     font-weight: 900;
+}
+#roomsList input{
+    padding: 10px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-left: 10px;
+    border-radius: 10px;
+    outline: blue;
+    box-shadow: 1px 5px 0px black;
+}
+#roomsList button{
+    padding: 10px;
+    font-weight: 900;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    letter-spacing: 2px;
+    box-shadow: 1px 5px 0px black;
 }
 
 @media(min-width:600px){
