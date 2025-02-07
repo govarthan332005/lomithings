@@ -118,6 +118,14 @@
     </div>
   </div>
 
+  <div class="news-ticker" id="news">
+    <div class="ticker-label"><h1>UPDATE:</h1></div>
+    <div class="ticker-content">
+      <div class="news" id="newsContent">Loading updates...</div>
+    </div>
+  </div>
+
+  
   <section class="Tournaments-section" id="Tournaments">
     <div class="tournament-list" id="tournamentList"></div>
   </section>
@@ -136,6 +144,7 @@
     <p class="note">Check Before 15mins Of Start Time, Remember Key Will Be Send To Your WhatsApp.</p>
     <div id="roomsList"></div>
   </section>
+
   <script src="lomigames.js"></script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
@@ -165,27 +174,31 @@
     }
 
     function displayTournaments(tournaments) {
-      const container = document.getElementById("tournamentList");
-      container.innerHTML = "";
-      tournaments.forEach(tournament => {
-        const card = document.createElement("div");
-        card.className = "tournament-card";
-        card.innerHTML = `
-          ${tournament.imageUrl ? `<img src="${tournament.imageUrl}" class="tournament-image" alt="${tournament.name}">` : ""}
-          <h3>${tournament.name}</h3>
-          <p><strong>Date:</strong> ${tournament.date}</p>
-          <p><strong>Time:</strong> ${formatTime(tournament.time)}</p>
-           <p><strong>Match Type:</strong> ${tournament.matchtype}</p>
-          <p><strong>Winning Price:</strong> ₹${tournament.winningPrice}</p>
-          <p><strong>Per Kill:</strong> ₹${tournament.perKill}</p>
-          <p><strong>Joining Fee:</strong> ₹${tournament.joiningFee}</p>
-          <p><strong>Description:</strong> ${tournament.description}</p>
-          ${tournament.isRegistrationOpen ? `<button class="join-button" onclick="openJoinPopup('${tournament.id}')">Join Now</button>` 
-          : `<span class="join-button closed">Registration Closed</span>`}
-        `;
-        container.appendChild(card);
-      });
-    }
+  const container = document.getElementById("tournamentList");
+  container.innerHTML = "";
+  tournaments.forEach(tournament => {
+    const card = document.createElement("div");
+    card.className = "tournament-card";
+    card.innerHTML = `
+      ${tournament.imageUrl ? `<img src="${tournament.imageUrl}" class="tournament-image" alt="${tournament.name}">` : ""}
+      <h3>${tournament.name}</h3>
+      <p><strong>Date:</strong> ${tournament.date}</p>
+      <p><strong>Time:</strong> ${formatTime(tournament.time)}</p>
+      <p><strong>Match Type:</strong> ${tournament.matchtype}</p>
+      <p><strong>Winning Price:</strong> ₹${tournament.winningPrice}</p>
+      <p><strong>Per Kill:</strong> ₹${tournament.perKill}</p>
+      <p><strong>Joining Fee:</strong> ₹${tournament.joiningFee}</p>
+      <div class="dropdown-header" onclick="toggleDropdown(this)">Details About Match</div>
+      <div class="dropdown-content" style="display: none;">
+        <p>${tournament.description}</p>
+      </div>
+      ${tournament.isRegistrationOpen 
+        ? `<button class="join-button" onclick="openJoinPopup('${tournament.id}')">Join Now</button>` 
+        : `<span class="join-button closed">Registration Closed</span>`}
+    `;
+    container.appendChild(card);
+  });
+}
 
     function formatTime(timeString) {
       if (!timeString) return "";
@@ -207,27 +220,67 @@
     let currentUserData = null;
 
     window.openJoinPopup = function(tournamentId) {
-      currentTournamentId = tournamentId;
-      closePopup();
-      const popup = document.createElement("div");
-      popup.className = "popup";
-      popup.innerHTML = `
-        <div class="popup-content">
-          <h2>Enter Your Details</h2>
-          <label>Game UID:</label>
-          <input type="text" id="gameUid" required>
-          <label>Game Name:</label>
-          <input type="text" id="gameName" required>
-          <label>WhatsApp Number (Key Will Be Sended Before Time):</label>
-          <input type="text" id="whatsapp" required>
-          <button id="submitPay">Submit & Pay</button>
-          <button id="cancelJoin">Cancel</button>
-        </div>
-      `;
-      document.body.appendChild(popup);
-      document.getElementById("submitPay").addEventListener("click", submitAndPay);
-      document.getElementById("cancelJoin").addEventListener("click", closePopup);
+  currentTournamentId = tournamentId;
+  closePopup();
+  
+  const popup = document.createElement("div");
+  popup.className = "popup";
+  popup.innerHTML = `
+    <div class="popup-content">
+      <h2>Enter Your Details</h2>
+      <form id="joinForm">
+        <label for="gameUid">Game UID:</label>
+        <input 
+          type="text" 
+          id="gameUid" 
+          name="gameUid"
+          maxlength="12" 
+          pattern="\\d{12}" 
+          title="Please enter exactly 12 digits" 
+          required>
+          
+        <label for="gameName">Game Name:</label>
+        <input 
+          type="text" 
+          id="gameName" 
+          name="gameName" 
+          required>
+          
+        <label for="whatsapp">WhatsApp Number (Key Will Be Sent On Successful Joining):</label>
+        <input 
+          type="text" 
+          id="whatsapp" 
+          name="whatsapp"
+          maxlength="10" 
+          pattern="\\d{10}" 
+          title="Please enter exactly 10 digits" 
+          required>
+          
+        <button type="submit" id="submitPay">Submit & Pay</button>
+        <button type="button" id="cancelJoin">Cancel</button>
+      </form>
+    </div>
+  `;
+  
+  document.body.appendChild(popup);
+  
+  // Add a submit event listener to the form to perform validation before calling submitAndPay
+  document.getElementById("joinForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    // Check if the form is valid
+    if (this.checkValidity()) {
+      // Proceed with your submission logic
+      submitAndPay();
+    } else {
+      // Trigger the built-in validation error messages
+      this.reportValidity();
     }
+  });
+  
+  // Add a click listener to the cancel button
+  document.getElementById("cancelJoin").addEventListener("click", closePopup);
+}
 
     function submitAndPay() {
       const gameUid = document.getElementById("gameUid").value.trim();
@@ -424,6 +477,20 @@
   }
   
   loadRooms();
+
+
+  const newsContent = document.getElementById('newsContent');
+
+    // Listen to the "updates" collection for realtime updates
+    db.collection("updates").orderBy("timestamp", "asc").onSnapshot((snapshot) => {
+      let updates = [];
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        updates.push(data.message);
+      });
+      // Combine messages with a separator and update the ticker text
+      newsContent.textContent = updates.join("   |   ");
+    });
 </script>
 </body>
 </html>
