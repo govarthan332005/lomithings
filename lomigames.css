@@ -30,7 +30,7 @@
     position:fixed;
     top: 0%;
     display: flex;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
     justify-content: space-between;
     align-items: center;
@@ -43,9 +43,9 @@
 .header h1{
     display:start;
     font-family: "Lilita One", serif;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     color: rgb(0, 0, 0);
-    font-size: 1.7rem;
+    font-size: 2rem;
     text-transform: uppercase;
 }
 .menu{
@@ -65,7 +65,7 @@
     position:fixed;
     top:60px;
     right: 10px;
-    width: 190px;
+    width: 60%;
     padding: 10px;
     background-color:white;
     border-bottom-right-radius: 10px ;
@@ -80,7 +80,7 @@
     padding: 10px;
 }
 .sidebar-container button{
-    padding: 10px;
+    padding: 13px 20px;
     border: none;
     border-radius: 10px;
     font-family: "Josefin Sans", serif;
@@ -126,14 +126,14 @@
     position: relative;
     margin: 0% auto;
     width: 100%;
-    margin-top: 70px;
-    padding: 10px;
+    padding: 20px;
+    padding-top: 0;
 }
 
 .tournament-card {
     border: 3px solid white;
     border-radius: 5px;
-    margin: 15px 0;
+    margin: 15px auto;
     width:100%;
 }
 .tournament-image {
@@ -145,17 +145,61 @@
     font-size: 400;
     letter-spacing: 4px;
     padding: 10px;
-    font-size: 1.6rem;
+    font-size: 1.1rem;
     color: white;
     font-family: "Abril Fatface", serif;
 }
 .tournament-card p{
     padding: 7px;
-    font-size: 1.4rem;
+    font-size: 1rem;
     color: white;
     letter-spacing: 2px;
     font-family: "Josefin Sans", serif;
 }
+
+
+
+  .dropdown-header {
+    width: 70%;
+    margin-left: 5px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    border-radius: 10px;
+    border-left: 5px solid rgb(19, 222, 19);
+  }
+  .dropdown-content {
+    display: none;
+    padding: 10px;
+    margin-left: 5px;
+    margin-top: 5px;
+    border-radius: 10px;
+    background-color: #fff;
+    border-left: 5px solid rgb(13, 216, 13);
+    width: 90%;
+    animation: dropdown 0.6s ease-in-out;
+  }
+  .dropdown-content p{
+    color: black;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+  }
+  @keyframes dropdown{
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+}
+  }
+
 .tournament-card strong{
     font-weight: 900;
     letter-spacing: 2px;
@@ -172,7 +216,7 @@
     letter-spacing: 2px;
     margin-top: 10px;
     margin-left: 10px;
-    font-size: 1.5rem;
+    font-size: 0.8rem;
     cursor: pointer;
     width: 70%;
     border-radius: 5px;
@@ -234,6 +278,7 @@
     border-radius: 5px;
     font-weight: 900;
     letter-spacing: 2px;
+    color: white;
     font-family: "Exo 2", serif;
     background-color: rgb(23, 23, 251);
     box-shadow: 1px 5px 0px black;
@@ -251,7 +296,6 @@
 
 .container {
     position: relative;
-    margin-top: 70px;
     max-width: 800px;
   }
   .container h2{
@@ -339,7 +383,6 @@
 
 .Rooms-section{
     position: relative;
-    top: 70px;
     height: 100vh;
     width: 100%;
 }
@@ -361,12 +404,24 @@
     border-left: 5px solid green;
     border-radius: 10px;
 }
+#roomsList{
+    margin: 20px;
+}
 #roomsList p{
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     letter-spacing: 3px;
     padding: 10px;
     text-transform: uppercase;
     color: white;
+    font-weight: 900;
+}
+#roomsList div div p{
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    padding: 15px;
     font-weight: 900;
 }
 #roomsList input{
@@ -387,6 +442,78 @@
     letter-spacing: 2px;
     box-shadow: 1px 5px 0px black;
 }
+
+
+/* Container for the entire ticker */
+.news-ticker {
+    width: 100%;
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 10000;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+  /* Fixed label on the left */
+  .ticker-label {
+    position: absolute;
+    z-index: 1000;
+    border-radius: 10px;
+    color: black;
+    flex: 0 0 auto;
+    background-color: white;
+    color: white;
+    font-weight: bold;
+    border-left: 5px solid red;
+    border-right: 1px solid #ccc;
+  }
+  .ticker-label h1{
+    color: black;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: blue;
+    text-shadow: 1px 1px 1px black;
+  }
+  /* Container for the scrolling text */
+  .ticker-content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    height: 30px;
+    background-color: white;
+    border-radius: 10px;
+  }
+  /* Scrolling news text */
+  .news {
+    background-color: white;
+    position: absolute;
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 30px;
+    /* Animation for scrolling from right to left */
+    -webkit-animation: scroll-left 15s linear infinite;
+    animation: scroll-left 15s linear infinite;
+  }
+  /* Keyframes with vendor prefixes */
+  @-webkit-keyframes scroll-left {
+    0% {
+      -webkit-transform: translateX(100%);
+    }
+    100% {
+      -webkit-transform: translateX(-100%);
+    }
+  }
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
 
 @media(min-width:600px){
     body{
