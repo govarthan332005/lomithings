@@ -28,3 +28,13 @@ function Room(){
       Results.style.display='none';
       tournaments.style.display='none';
 }
+function toggleDropdown(headerElement) {
+      // Get the dropdown content which is the next sibling of the header element.
+      const dropdownContent = headerElement.nextElementSibling;
+      // Toggle the display style between "none" and "block"
+      if (dropdownContent.style.display === "none" || dropdownContent.style.display === "") {
+        dropdownContent.style.display = "block";
+      } else {
+        dropdownContent.style.display = "none";
+      }
+    }
