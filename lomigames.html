@@ -342,27 +342,24 @@
 
   // PhonePe
  // PhonePe
+// PhonePe: Redirects to the PhonePe app with the UPI ID and forced note.
 document.getElementById("phonePayBtn").addEventListener("click", () => {
-  // Updated PhonePe deep link with the specified UPI ID
-  window.location.href = "phonepe://pay?pa=8688967845@pthdfc&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
+  window.location.href = "phonepe://pay?pa=8688967845@pthdfc&pn=MerchantName&cu=INR&tn=Tournament%20Joining%20Fee";
 });
 
-// Google Pay
+// Google Pay: Redirects to Google Pay (or the UPI chooser) with the UPI ID and forced note.
 document.getElementById("googlePayBtn").addEventListener("click", () => {
-  // Updated Google Pay deep link with the specified UPI ID
-  window.location.href = "upi://pay?pa=8688967845@pthdfc&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
+  window.location.href = "upi://pay?pa=8688967845@pthdfc&pn=MerchantName&cu=INR&tn=Tournament%20Joining%20Fee";
 });
 
-// Paytm
+// Paytm: Redirects to the Paytm app with the UPI ID and forced note.
 document.getElementById("paytmBtn").addEventListener("click", () => {
-  // Updated Paytm deep link with the specified UPI ID
-  window.location.href = "paytmmp://pay?pa=8688967845@pthdfc&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
+  window.location.href = "paytmmp://pay?pa=8688967845@pthdfc&pn=MerchantName&cu=INR&tn=Tournament%20Joining%20Fee";
 });
 
-// UPI (this should trigger the device’s UPI chooser on Android)
+// Generic UPI: Opens the UPI app chooser with the UPI ID and forced note.
 document.getElementById("upiBtn").addEventListener("click", () => {
-  // Updated generic UPI deep link with the specified UPI ID
-  window.location.href = "upi://pay?pa=8688967845@pthdfc&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
+  window.location.href = "upi://pay?pa=8688967845@pthdfc&pn=MerchantName&cu=INR&tn=Tournament%20Joining%20Fee";
 });
 
 
