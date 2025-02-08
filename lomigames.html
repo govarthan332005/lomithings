@@ -341,27 +341,30 @@
   // Replace the URL parameters with your actual payment details
 
   // PhonePe
-  document.getElementById("phonePayBtn").addEventListener("click", () => {
-    // Example PhonePe deep link – update with proper UPI parameters as needed
-    window.location.href = "phonepe://pay?pa=merchant@bank&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
-  });
+ // PhonePe
+document.getElementById("phonePayBtn").addEventListener("click", () => {
+  // Updated PhonePe deep link with the specified UPI ID
+  window.location.href = "phonepe://pay?pa=8688967845@pthdfc&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
+});
 
-  // Google Pay
-  document.getElementById("googlePayBtn").addEventListener("click", () => {
-    // Example Google Pay deep link (using a generic UPI URL)
-    window.location.href = "upi://pay?pa=merchant@bank&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
-  });
+// Google Pay
+document.getElementById("googlePayBtn").addEventListener("click", () => {
+  // Updated Google Pay deep link with the specified UPI ID
+  window.location.href = "upi://pay?pa=8688967845@pthdfc&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
+});
 
-  // Paytm
-  document.getElementById("paytmBtn").addEventListener("click", () => {
-    // Example Paytm deep link – update with proper parameters
-    window.location.href = "paytmmp://pay?pa=merchant@bank&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
-  });
+// Paytm
+document.getElementById("paytmBtn").addEventListener("click", () => {
+  // Updated Paytm deep link with the specified UPI ID
+  window.location.href = "paytmmp://pay?pa=8688967845@pthdfc&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
+});
 
-  // UPI (this should trigger the device’s UPI chooser on Android)
-  document.getElementById("upiBtn").addEventListener("click", () => {
-    window.location.href = "upi://pay?pa=merchant@bank&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
-  });
+// UPI (this should trigger the device’s UPI chooser on Android)
+document.getElementById("upiBtn").addEventListener("click", () => {
+  // Updated generic UPI deep link with the specified UPI ID
+  window.location.href = "upi://pay?pa=8688967845@pthdfc&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
+});
+
 
   // --- QR Code Download Functionality ---
   document.getElementById("downloadQR").addEventListener("click", () => {
