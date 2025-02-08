@@ -91,6 +91,9 @@
   </script>
 </head>
 <body>
+
+  <h1 class="desktop">Soory These Website Not For Desktop Users.</h1>
+<div class="lomigames">
   <!-- Loader -->
   <div id="loader">
     <div class="spinner"></div>
@@ -145,6 +148,8 @@
     <div id="roomsList"></div>
   </section>
 
+
+</div>
   <script src="lomigames.js"></script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
@@ -185,6 +190,7 @@
       <p><strong>Date:</strong> ${tournament.date}</p>
       <p><strong>Time:</strong> ${formatTime(tournament.time)}</p>
       <p><strong>Match Type:</strong> ${tournament.matchtype}</p>
+      <p><strong>Players Joined:</strong> ${tournament.joinedplayers}</p>
       <p><strong>Winning Price:</strong> ₹${tournament.winningPrice}</p>
       <p><strong>Per Kill:</strong> ₹${tournament.perKill}</p>
       <p><strong>Joining Fee:</strong> ₹${tournament.joiningFee}</p>
@@ -296,6 +302,7 @@
     }
     function openPaymentPopup(userData, tournamentId) {
   closePopup();
+
   const popup = document.createElement("div");
   popup.className = "popup";
   popup.innerHTML = `
@@ -303,21 +310,60 @@
       <h2>Complete Your Payment</h2>
       <p>Scan And Pay. Remember to pay only the joining fees.</p>
       <img src="qr.jpeg" alt="QR Code" class="qr-code" id="qrCode">
+      
+      <!-- Payment Options with Icons -->
+      <div class="payment-options" style="margin: 5px 0; display: flex; gap: 5px; justify-content: center; align-items: center;">
+        <button id="phonePayBtn">
+          <img src="phonepay.jpg" alt="PhonePe" style="width: 30px; height: 30px;">
+        </button>
+        <button id="googlePayBtn"  >
+          <img src="googlepay.webp" alt="Google Pay" style="width: 30px; height: 30px;">
+        </button>
+        <button id="paytmBtn" >
+          <img src="paytm.jpg" alt="Paytm" style="width: 30px; height: 30px;">
+        </button>
+        <button id="upiBtn" >
+          <img src="upi.webp" alt="UPI" style="width: 30px; height: 30px;">
+        </button>
+      </div>
+      
       <button id="downloadQR">Download QR Code</button>
       <p>After successful payment, enter the UTR number and submit. Within 30-60 minutes, you will receive a confirmation message through WhatsApp.</p>
-      <label>Enter UTR Number:</label>
-      <input type="text" id="utrNumber" required>
+      <label for="utrNumber">Enter UTR Number:</label>
+      <input type="text" id="utrNumber" placeholder="12-digit UTR" required>
       <button id="submitPayment">Submit</button>
       <button id="cancelPayment">Cancel</button>
     </div>
   `;
   document.body.appendChild(popup);
 
-  // Event Listeners
-  document.getElementById("submitPayment").addEventListener("click", () => submitPayment(userData, tournamentId));
-  document.getElementById("cancelPayment").addEventListener("click", closePopup);
+  // --- Payment Option Button Handlers ---
+  // Replace the URL parameters with your actual payment details
 
-  // QR Code Download Functionality
+  // PhonePe
+  document.getElementById("phonePayBtn").addEventListener("click", () => {
+    // Example PhonePe deep link – update with proper UPI parameters as needed
+    window.location.href = "phonepe://pay?pa=merchant@bank&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
+  });
+
+  // Google Pay
+  document.getElementById("googlePayBtn").addEventListener("click", () => {
+    // Example Google Pay deep link (using a generic UPI URL)
+    window.location.href = "upi://pay?pa=merchant@bank&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
+  });
+
+  // Paytm
+  document.getElementById("paytmBtn").addEventListener("click", () => {
+    // Example Paytm deep link – update with proper parameters
+    window.location.href = "paytmmp://pay?pa=merchant@bank&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
+  });
+
+  // UPI (this should trigger the device’s UPI chooser on Android)
+  document.getElementById("upiBtn").addEventListener("click", () => {
+    window.location.href = "upi://pay?pa=merchant@bank&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
+  });
+
+  // --- QR Code Download Functionality ---
   document.getElementById("downloadQR").addEventListener("click", () => {
     const qrImage = document.getElementById("qrCode");
     const qrUrl = qrImage.src;
@@ -329,7 +375,24 @@
     a.click();
     document.body.removeChild(a);
   });
+
+  // --- UTR Submission with Validation ---
+  document.getElementById("submitPayment").addEventListener("click", () => {
+    const utr = document.getElementById("utrNumber").value.trim();
+    // Validate that the UTR is exactly 12 digits
+    const utrRegex = /^\d{12}$/;
+    if (!utrRegex.test(utr)) {
+      alert("Please enter a valid 12-digit UTR number.");
+      return;
+    }
+    // Call the payment submission function if UTR is valid
+    submitPayment(userData, tournamentId);
+  });
+
+  // Cancel Payment button
+  document.getElementById("cancelPayment").addEventListener("click", closePopup);
 }
+
 
 
     async function submitPayment(userData, tournamentId) {
