@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LomiGames || Free Fire Tournaments</title>
   <link rel="stylesheet" href="lomigames.css">
-  <meta name="description" content="LomiGames - Your ultimate platform for Games, Play Games With Us And Earn Money By Playing Also We Provide Free Earning Ways.">
+  <meta name="description" content="LomiGames - Your ultimate platform For Playing Tournaments like Free Fire, Bgmi with High Winning Price Without Any Charge.">
     <meta name="keywords" content="LomiGames, free fire tournaments, free tournaments, free fire diamonds free, free diamonds">
-    <meta name="keywords" content="LomiGames, free fire tournaments, free fire free diamonds, free fire diamonds, free matchs, free Money Earning Apps">
+    <meta name="keywords" content="LomiGames, free fire tournaments, free fire free diamonds, free fire diamonds, free matchs">
     <meta name="author" content="LomiGames">
     <meta name="robots" content="index, follow">
     <link rel="icon" href="favicon.jpeg" type="image/x-icon">
     <link rel="shortcut-icon" href="favicon.jpeg" type="image/x-icon">
     <meta property="og:title" content="LomiGames">
     <meta property="og:description" content="Free Fire Tournaments And free Tournaments to earn money By playing Games.">
-    <meta property="og:image" content="https://lomithings.club/favicon.jpeg">
-    <meta property="og:url" content="https://lomithings.club">
+    <meta property="og:image" content="https://lomithings.club/lomigames.html/favicon.jpeg">
+    <meta property="og:url" content="https://lomithings.club/lomigames.html">
   <style>
      .popup {
       position: fixed;
@@ -115,6 +115,7 @@
 
   <div id="sidebar" class="sidebar" style="display: none;">
     <div class="sidebar-container">
+      <h1>SERVICES</h1>
       <button class="Tournaments" onclick="Tournament()">Tournaments</button>
       <button class="Results" onclick="Result()">Results</button>
       <button class="RoomDetails" onclick="Room()">Room Details</button>
@@ -148,6 +149,9 @@
     <div id="roomsList"></div>
   </section>
 
+  <div class="whatsapp">
+    <img onclick="help()" src="whatsapp.jpg" alt="helpcenter">
+  </div>
 
 </div>
   <script src="lomigames.js"></script>
@@ -341,25 +345,28 @@
   // Replace the URL parameters with your actual payment details
 
   // PhonePe
- // PhonePe
-// PhonePe: Redirects to the PhonePe app with the UPI ID and forced note.
+  // PhonePe
 document.getElementById("phonePayBtn").addEventListener("click", () => {
-  window.location.href = "phonepe://pay?pa=8688967845@pthdfc&pn=MerchantName&cu=INR&tn=Tournament%20Joining%20Fee";
+  // Updated PhonePe deep link with the specified UPI ID
+  window.location.href = "phonepe://pay?pa=8688967845@pthdfc&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
 });
 
-// Google Pay: Redirects to Google Pay (or the UPI chooser) with the UPI ID and forced note.
+// Google Pay
 document.getElementById("googlePayBtn").addEventListener("click", () => {
-  window.location.href = "upi://pay?pa=8688967845@pthdfc&pn=MerchantName&cu=INR&tn=Tournament%20Joining%20Fee";
+  // Updated Google Pay deep link with the specified UPI ID
+  window.location.href = "upi://pay?pa=8688967845@pthdfc&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
 });
 
-// Paytm: Redirects to the Paytm app with the UPI ID and forced note.
+// Paytm
 document.getElementById("paytmBtn").addEventListener("click", () => {
-  window.location.href = "paytmmp://pay?pa=8688967845@pthdfc&pn=MerchantName&cu=INR&tn=Tournament%20Joining%20Fee";
+  // Updated Paytm deep link with the specified UPI ID
+  window.location.href = "paytmmp://pay?pa=8688967845@pthdfc&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
 });
 
-// Generic UPI: Opens the UPI app chooser with the UPI ID and forced note.
+// UPI (this should trigger the device’s UPI chooser on Android)
 document.getElementById("upiBtn").addEventListener("click", () => {
-  window.location.href = "upi://pay?pa=8688967845@pthdfc&pn=MerchantName&cu=INR&tn=Tournament%20Joining%20Fee";
+  // Updated generic UPI deep link with the specified UPI ID
+  window.location.href = "upi://pay?pa=8688967845@pthdfc&pn=MerchantName&am=100&cu=INR&tn=Tournament%20Joining%20Fee";
 });
 
 
