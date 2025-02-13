@@ -17,16 +17,23 @@ function Tournament(){
       tournaments.style.display='block';
       Results.style.display='none';
       Rooms.style.display='none';
+      sidebar.style.display='none';
 }
 function Result(){
       Results.style.display='block';
       tournaments.style.display='none';
       Rooms.style.display='none';
+      sidebar.style.display='none';
 }
 function Room(){
       Rooms.style.display='block';
       Results.style.display='none';
       tournaments.style.display='none';
+      sidebar.style.display='none';
+}
+function help(){
+  window.open('https://api.whatsapp.com/send?phone=8688967845', '_blank');
+
 }
 function toggleDropdown(headerElement) {
       // Get the dropdown content which is the next sibling of the header element.
