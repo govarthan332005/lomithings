@@ -46,3 +46,20 @@ function closelomika(){
 function join(){
   window.open('https://chat.whatsapp.com/LKbQW1EvYDCGeXQUNqUofz', '_blank'); // Opens course.html in a new tab
 }
+
+ document.getElementById('button').addEventListener('click', function() {
+      // URL of the file you want to download
+      const fileUrl = 'LomiGames.apk'; // Change this to your file path/URL
+      // Desired filename when downloaded
+      const fileName = 'LomiGames.apk'; // Change this to your desired file name
+
+      // Create a temporary anchor element
+      const a = document.createElement('a');
+      a.href = fileUrl;
+      a.download = fileName;
+      
+      // Append to the body, trigger click and then remove it
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
