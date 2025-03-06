@@ -1,0 +1,403 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono&family=Lilita+One&family=Sigmar&display=swap');
+/* Reset & Basic Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  /* Header Styles */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+    padding: 10px 10px;
+    background-color: white;
+    position:fixed;
+    top: 0%;
+    width: 100%;
+    z-index: 100;
+  }
+  
+  .logocontainer img {
+    height: 50px;
+  }
+  
+  /* Menu Container */
+  .menucontainer {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+  
+  /* Hamburger Icon */
+  .menu-icon {
+    width: 30px;
+    height: 30px;
+    fill: black;
+    cursor: pointer;
+    display: none; /* Hidden on desktop */
+    transition: transform 0.3s ease-in-out;
+  }
+  .menu-icon:hover{
+    transform: rotate(60deg);
+  } 
+  
+  /* Desktop Menu */
+  .desktop-menu ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+    /* From Uiverse.io by Allyhere */ 
+    .desktop-menu ul li a {
+    --clr-font-main: hsla(0 0% 20% / 100);
+    --btn-bg-1: hsla(194 100% 69% / 1);
+    --btn-bg-2: hsla(217 100% 56% / 1);
+    --btn-bg-color: hsla(360 100% 100% / 1);
+    --radii: 0.5em;
+    cursor: pointer;
+    padding: 0.6em 1.4em;
+    min-width: 120px;
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-family: "Anton", sans-serif;
+    min-height: 44px;
+    font-size: var(--size, 1rem);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: 0.8s;
+    background-size: 280% auto;
+    background-image: linear-gradient(
+      325deg,
+      var(--btn-bg-2) 0%,
+      var(--btn-bg-1) 55%,
+      var(--btn-bg-2) 90%
+    );
+    border: none;
+    border-radius: var(--radii);
+    color: var(--btn-bg-color);
+    box-shadow:
+      0px 0px 20px rgba(71, 184, 255, 0.5),
+      0px 5px 5px -1px rgba(58, 125, 233, 0.25),
+      inset 4px 4px 8px rgba(175, 230, 255, 0.5),
+      inset -4px -4px 8px rgba(19, 95, 216, 0.35);
+  }
+  
+  .desktop-menu ul li a:hover {
+    background-position: right top;
+  }
+  
+  .desktop-menu ul li a:is(:focus, :focus-visible, :active) {
+    outline: none;
+    box-shadow:
+      0 0 0 3px var(--btn-bg-color),
+      0 0 0 6px var(--btn-bg-2);
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .desktop-menu ul li a {
+      transition: linear;
+    }
+  }
+  /* Mobile Sidebar */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 250px;
+    height: 100%;
+    background: #FCF7F8;
+    padding-top: 60px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+  .mobile-menu nav h1{
+    font-size: 1.2rem;
+    letter-spacing: 3px ;
+    font-weight:900;
+    font-family: "Lilita One", sans-serif;
+    color: rgb(13, 203, 13);
+    margin: 10px;
+    text-transform: uppercase;
+  }
+  
+  .mobile-menu nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .mobile-menu nav ul li button {
+    display:block;
+    padding: 15px 20px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    box-shadow: 1px 5px 1px rgb(0, 0, 243);
+    color: rgb(45, 42, 42);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    font-family: "Lilita One", sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  .mobile-menu nav ul li button:hover{
+    background-color: rgb(212, 200, 200);
+  }
+  .mobile-menu nav ul li button:active {
+    transform: translateY(5px);
+    box-shadow: 0px 0px 0px;
+    transition: 200ms;
+  }
+  
+  /* Overlay */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 900;
+  }
+  
+  .overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .home{
+    background-color: #CCDDEA;
+  }
+  
+  .mobile-menu.active {
+    left: 0;
+  }
+  
+  /* Responsive Breakpoints */
+  @media (max-width: 868px) {
+    .desktop-menu {
+      display: none;
+    }
+    .menu-icon {
+      display: block;
+    }
+  }
+  @media (min-width: 968px) {
+    .desktop-menu ul li a {
+      font-size: 1rem;
+    }
+    .logocontainer img{
+        height: 60px;
+    }
+  }
+  @media (min-width: 769px) {
+    .mobile-menu {
+      display: none;
+    }
+  }
+  
+
+
+     
+   
+   /* CSS Variables for Advanced Color Palette */
+   :root {
+    --primary: #ff6b81;      /* Vibrant coral */
+    --secondary: #4ecdc4;    /* Fresh teal */
+    --accent: #1a535c;       /* Deep navy */
+    --bg-light: #f7fff7;      /* Soft off-white */
+    --text-dark: #2e2e2e;     /* Dark grey */
+    --container-bg: #ffffff;  /* Clean white */
+    --shadow: rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0% auto;
+    margin-top: 80px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px var(--shadow);
+    transition: transform var(--transition-speed);
+  }
+  
+  .container:hover {
+    transform: scale(1.01);
+  }
+  #collegeSelector option{
+    font-weight: 700;
+    letter-spacing: 4px;
+  }
+  /* Filter Section */
+  .filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+  }
+  
+  .filter-section select,
+  .filter-section input {
+    padding: 12px;
+    font-size: 1em;
+    font-weight: 700;
+    letter-spacing: 3px;
+    cursor: pointer;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color var(--transition-speed);
+  }
+  
+  .filter-section select:focus,
+  .filter-section input:focus {
+    border-color: var(--primary);
+  }
+  #productsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem; /* optional: adds spacing between grid items */
+  }
+  
+  
+  /* Product Card */
+  .product-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    transition: box-shadow var(--transition-speed);
+    background: var(--container-bg);
+  }
+  
+  .product-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+  .product-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.8em;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--secondary);
+    text-shadow: 1px 1px 1px black;
+  }
+  
+  .product-card small {
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+  
+  .product-card p {
+    margin-bottom: 12px;
+    font-size: 1.3em;
+    color: rgb(45, 41, 41);
+    display: flex;
+    font-family:serif;
+    font-weight: 800;
+    text-align: left;
+    letter-spacing: 3px;
+  }
+  .product-card  strong{
+    font-weight: 900;
+    font-family: "Lilita One", sans-serif;
+    color: rgb(27, 25, 25);
+  }
+  
+  .product-card button {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary);
+    color: #fff;
+    cursor: pointer;
+    transition: background var(--transition-speed), transform var(--transition-speed);
+  }
+  
+  .product-card button:hover {
+    background-color: #e55050;
+    transform: translateY(-3px);
+  }
+  #buy{
+    padding: 10px 80px;
+  }
+  
+  /* Slider */
+  .slider {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    margin: 0% auto;
+    width: 100%;
+    height: 250px;
+  }
+  
+  .slider button {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--primary);
+    transition: color var(--transition-speed);
+  }
+  
+  .slider button:hover {
+    color: var(--secondary);
+  }
+  
+  .slider img {
+    max-width: 250px;
+    max-height: 200px;
+    object-fit: cover;
+    margin: 0 10px;
+    border-radius: 10px;
+    transition: transform var(--transition-speed);
+  }
+  
+  .slider img:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .container {
+      padding: 20px;
+    }
+    
+    h1 {
+      font-size: 2.2em;
+    }
+    
+    .product-card h3 {
+      font-size: 1.5em;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .slider img {
+      max-width: 250px;
+      max-height: 200px;
+    }
+    
+    .filter-section select,
+    .filter-section input {
+      width: 100%;
+    }
+  }

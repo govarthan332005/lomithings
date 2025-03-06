@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LomiThings Find All You Need🥹</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="logo1.jpeg">
+<link rel="icon" type="image/png" sizes="16x16" href="logo1.jpeg">
+<link rel="apple-touch-icon" sizes="180x180" href="logo1.jpeg">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Montserrat:wght@700;900&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="logocontainer">
+      <img src="logo.jpeg" srcset="logo.jpeg 1x, logo.jpeg 2x" alt="LomiThings logo" />
+    </div>
+    <div class="menucontainer">
+      <!-- Hamburger icon for mobile -->
+      <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+      </svg>
+      <!-- Desktop Menu -->
+      <nav class="desktop-menu">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Buying Process</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Sidebar Menu -->
+  <aside class="mobile-menu">
+    <nav>
+        <h1>Lomi Things</h1>
+      <ul>
+        <li><button href="#home">Home</button></li>
+        <li><button href="#">About Us</button></li>
+        <li><button href="#">Contact Us</button></li>
+        <li><button href="#">Buying Process</button></li>
+      </ul>
+      <h1>More Services</h1>
+      <ul>
+        <li><button href="#">Coming Soon..</button></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Optional overlay for mobile menu -->
+  <div class="overlay" ></div>
+  <div class="home" id="home" >
+<div class="container">
+  <div class="filter-section">
+    <select id="collegeSelector">
+      <option value="">Select College</option>
+      <!-- Options populated dynamically from Firebase -->
+    </select>
+    <input type="text" id="searchInput" placeholder="Search items...">
+  </div>
+  <div id="productsContainer">
+    <!-- Products fetched from Firebase will be injected here -->
+  </div>
+</div>
+  </div>
+
+
+  <section id="about">
+    <div class="about-container">
+      <!-- Left Charging Line -->
+      <div class="line"></div>
+      <div class="about-content">
+        <div class="step">
+          <h2>About LomiThings</h2>
+          <p>
+            LomiThings is your ultimate destination for discovering, buying, and selling your used products in Btech with ease.
+            Experience innovation, security, and seamless service every step of the way.
+          </p>
+        </div>
+  
+        <div class="step">
+          <h2>How to Order</h2>
+          <p>
+            Choose the college, choose your favorite product, and complete your order with our secure payment process.
+            Ordering is fast, intuitive, and secure but remember order confirmation take more than 20mins, The confirmation message will be sent to your whatsapp.
+          </p>
+        </div>
+  
+        <div class="step">
+          <h2>How to Sell a Product</h2>
+          <p>
+            Message To the Customer Service They Will Assist With That Process Simple And Easy.
+            We make selling effortless.
+          </p>
+        </div>
+  
+        <div class="step">
+          <h2>How Orders are Delivered</h2>
+          <p>
+            We Will Deliver The Order Next Day Of The Ordering Or Before One Day We Deliver As Soon As Possible.
+            Enjoy real-time tracking By messaging To Customer Service.
+          </p>
+        </div>
+  
+        <div class="step">
+          <h2>How Orders are Confirmed</h2>
+          <p>
+            Once an order is placed, our Admins Check the Payment And Verify It And Send You A Confirmation Message Through whatsapp.
+            Stay updated with notifications until delivery.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Advanced Footer Section -->
+<footer id="footer">
+  <div class="footer-container">
+    <!-- Branding -->
+    <div class="footer-brand">
+      <img src="logo.jpeg" alt="LomiThings Logo" class="footer-logo">
+      <p class="footer-tagline">
+        <i class="fas fa-rocket"></i> Discover • Connect • Grow
+      </p>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="footer-info">
+      <div class="info-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div class="info-content">
+          <h4>Location</h4>
+          <p>Puttur Near Rail Way Gate</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-phone-alt"></i>
+        <div class="info-content">
+          <h4>Contact</h4>
+          <p>+918688967845</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-envelope"></i>
+        <div class="info-content">
+          <h4>Email</h4>
+          <p>lomithings@gmail.com</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Links & Social Media -->
+    <div class="footer-links-social">
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+          <li><a href="#home"><i class="fas fa-cogs"></i> Services</a></li>
+          <li><a href="#footer"><i class="fas fa-envelope-open-text"></i> Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h3>Follow Us</h3>
+        <ul>
+          <li><a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i>Facebook</a></li>
+          <li><a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i>Qwitter</a></li>
+          <li><a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i>Instagram</a></li>
+          <li><a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i>linkedin</a></li>
+          <li><a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i>Youtube</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Comment Submission Form -->
+    <div class="footer-comments">
+      <h3>Leave a Comment</h3>
+      <form id="commentForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="email" id="email" placeholder="Your Email" required>
+        <textarea id="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Submit Comment</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 LomiThings. All Rights Reserved.</p>
+  </div>
+</footer>
+
+  <script>
+    // Toggle mobile sidebar
+    const menuIcon = document.querySelector('.menu-icon');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const overlay = document.querySelector('.overlay');
+
+    menuIcon.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      overlay.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+  const steps = document.querySelectorAll(".step");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  steps.forEach((step) => {
+    observer.observe(step);
+  });
+});
+  </script>
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+  
+  <script>
+    // Firebase configuration (replace with your actual config)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAGP9EXBU1HOK9Hm5q5SetXYqG2DjRdBr4",
+      authDomain: "realtimedatabase-98181.firebaseapp.com",
+      databaseURL: "https://realtimedatabase-98181-default-rtdb.firebaseio.com",
+      projectId: "realtimedatabase-98181",
+      storageBucket: "realtimedatabase-98181.appspot.com",
+      messagingSenderId: "169892823409",
+      appId: "1:169892823409:web:0a8052a7a1d57c4c4676d0",
+      measurementId: "G-F8RVHR3C6Q"
+    };
+    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+  </script>
+  <script>
+    const db = firebase.database();
+
+    // Load college options dynamically from the "colleges" node
+    function loadColleges() {
+      db.ref('colleges').on('value', function(snapshot) {
+        const collegeSelector = document.getElementById('collegeSelector');
+        collegeSelector.innerHTML = '<option value="">Select College</option>';
+        snapshot.forEach(child => {
+          const college = child.val();
+          collegeSelector.innerHTML += `<option value="${child.key}">${college.name}</option>`;
+        });
+      });
+    }
+    loadColleges();
+
+    // Function to display products (with filtering)
+    function displayProducts(snapshot, query = "") {
+      const productsContainer = document.getElementById('productsContainer');
+      productsContainer.innerHTML = "";
+      snapshot.forEach(function(childSnapshot) {
+        let product = childSnapshot.val();
+        // Filter by selected college if one is chosen
+        let selectedCollege = document.getElementById('collegeSelector').value;
+        if (selectedCollege && product.collegeId !== selectedCollege) return;
+        // If a search query is provided, check product name and description
+        if (query && !(product.name.toLowerCase().includes(query) || product.description.toLowerCase().includes(query))) {
+          return;
+        }
+        // Retrieve the college name from Firebase
+        db.ref('colleges/' + product.collegeId).once('value', function(collegeSnap) {
+          const collegeData = collegeSnap.val();
+          const collegeName = collegeData ? collegeData.name : "";
+          // Create product card with image slider and display product ID (prodId)
+          let card = document.createElement('div');
+          card.className = "product-card";
+          card.innerHTML = `
+            <div class="slider">
+              <button onclick="prevImage(this)">&#9664;</button>
+              <img src="${product.images[0]}" alt="${product.name}" data-index="0" data-images='${JSON.stringify(product.images)}'>
+              <button onclick="nextImage(this)">&#9654;</button>
+            </div>
+            <h3>
+              ${product.name} <br>
+              <small><strong>ID:</strong> ${product.prodId ? product.prodId : 'N/A'}</small>
+            </h3>
+            <p><strong>Price:</strong> ₹${product.price}</p>
+            <p>${product.description}</p>
+            <p><strong>College:</strong> ${collegeName}</p>
+            <button id="buy" onclick="buyProduct('${childSnapshot.key}', '${product.name}', '${product.price}', '${collegeName}', '${product.collegeId}')">Buy</button>
+          `;
+          productsContainer.appendChild(card);
+        });
+      });
+    }
+
+    // Fetch products from Firebase and store the snapshot for later filtering
+    let productsSnapshot;
+    function fetchProducts() {
+      db.ref('products').on('value', function(snapshot) {
+        productsSnapshot = snapshot;
+        displayProducts(snapshot, document.getElementById('searchInput').value.toLowerCase());
+      });
+    }
+    fetchProducts();
+
+    // Image slider functions
+    function nextImage(btn) {
+      let img = btn.parentElement.querySelector('img');
+      let images = JSON.parse(img.getAttribute('data-images'));
+      let index = parseInt(img.getAttribute('data-index'));
+      index = (index + 1) % images.length;
+      img.src = images[index];
+      img.setAttribute('data-index', index);
+    }
+    function prevImage(btn) {
+      let img = btn.parentElement.querySelector('img');
+      let images = JSON.parse(img.getAttribute('data-images'));
+      let index = parseInt(img.getAttribute('data-index'));
+      index = (index - 1 + images.length) % images.length;
+      img.src = images[index];
+      img.setAttribute('data-index', index);
+    }
+
+    // Pass product details to the Buy page via sessionStorage
+    function buyProduct(productId, name, price, collegeName, collegeId) {
+      sessionStorage.setItem('selectedProduct', JSON.stringify({ productId, name, price, collegeName, collegeId }));
+      window.location.href = 'buy.html';
+    }
+
+    // Auto search: update product display on every key input
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const query = this.value.toLowerCase();
+      if (productsSnapshot) {
+        displayProducts(productsSnapshot, query);
+      }
+    });
+
+    // Refresh products when the college selector changes
+    document.getElementById('collegeSelector').addEventListener('change', function() {
+      if (productsSnapshot) {
+        displayProducts(productsSnapshot, document.getElementById('searchInput').value.toLowerCase());
+      }
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Firebase configuration - replace these values with your actual project settings
+      const firebaseConfig = {
+    apiKey: "AIzaSyDixufxD2KlUSPgqPIJQNatpQ0XEnpTouA",
+    authDomain: "lumilearn-df84e.firebaseapp.com",
+    databaseURL: "https://lumilearn-df84e-default-rtdb.firebaseio.com",
+    projectId: "lumilearn-df84e",
+    storageBucket: "lumilearn-df84e.appspot.com",
+    messagingSenderId: "972914519676",
+    appId: "1:972914519676:web:8c4c2a47beb1864954e3f9",
+    measurementId: "G-4LZM3VLSSS"
+  };
+    
+      // Initialize Firebase if it hasn't been initialized yet
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+    
+      const commentForm = document.getElementById('commentForm');
+    
+      commentForm.addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent default form submission
+    
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+    
+        if (!name || !email || !message) {
+          alert("Please fill out all fields.");
+          return;
+        }
+    
+        const commentData = {
+          name: name,
+          email: email,
+          message: message,
+          timestamp: new Date().toISOString()
+        };
+    
+        // Save comment to Firebase Realtime Database under the 'comments' node
+        firebase.database().ref('comments').push(commentData)
+          .then(() => {
+            alert("Thank you for your comment!");
+            commentForm.reset(); // Clear form fields
+          })
+          .catch((error) => {
+            console.error("Error submitting comment: ", error);
+            alert("An error occurred. Please try again later.");
+          });
+      });
+    });
+  </script>   
+</body>
+</html>
+
