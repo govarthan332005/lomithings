@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Buy Product - Lomithings</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ff6b81;      /* Vibrant coral */
+      --secondary: #4ecdc4;    /* Fresh teal */
+      --accent: #1a535c;       /* Deep navy */
+      --bg-light: #f7fff7;      /* Soft off-white */
+      --container-bg: #ffffff;  /* Clean white */
+      --text-dark: #2e2e2e;     /* Dark grey */
+      --shadow: rgba(0, 0, 0, 0.1);
+      --transition-speed: 0.3s;
+    }
+    
+    /* Base Reset & Typography */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, var(--bg-light), #e9ecef);
+      padding: 20px;
+      color: var(--text-dark);
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 500px;
+      background: var(--container-bg);
+      margin: 20px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px var(--shadow);
+      transition: transform var(--transition-speed);
+    }
+    
+    .container:hover {
+      transform: scale(1.01);
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 2.2em;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    label {
+      font-size: 1.1em;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    input, select {
+      padding: 12px;
+      font-size: 1em;
+      border: 2px solid var(--accent);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color var(--transition-speed);
+    }
+    
+    input:focus, select:focus {
+      border-color: var(--primary);
+    }
+    
+    button {
+      padding: 12px;
+      background-color: var(--primary);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition-speed), transform var(--transition-speed);
+    }
+    
+    button:hover {
+      background-color: #e55050;
+      transform: translateY(-3px);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+      input, select, button {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Buy Product</h1>
+    <form id="buyForm">
+      <label for="name">Name:</label>
+      <!-- maxlength limits to 25 characters -->
+      <input type="text" id="name" placeholder="Enter your name" maxlength="25" required>
+      
+      <label for="whatsapp">WhatsApp Number:</label>
+      <!-- Use type="text" with maxlength set to 10 -->
+      <input type="text" id="whatsapp" placeholder="10-digit number" maxlength="10" required>
+      
+      <label for="college">College:</label>
+      <select id="college" required>
+        <!-- Options will be populated dynamically from Firebase -->
+      </select>
+      
+      <label for="price">Price (₹):</label>
+      <input type="text" id="price" readonly>
+      
+      <button type="submit">Proceed to Payment</button>
+    </form>
+  </div>
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+  <script>
+    // Firebase configuration (replace with your actual config)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAGP9EXBU1HOK9Hm5q5SetXYqG2DjRdBr4",
+      authDomain: "realtimedatabase-98181.firebaseapp.com",
+      databaseURL: "https://realtimedatabase-98181-default-rtdb.firebaseio.com",
+      projectId: "realtimedatabase-98181",
+      storageBucket: "realtimedatabase-98181.appspot.com",
+      messagingSenderId: "169892823409",
+      appId: "1:169892823409:web:0a8052a7a1d57c4c4676d0",
+      measurementId: "G-F8RVHR3C6Q"
+    };
+    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+    const db = firebase.database();
+  </script>
+  <script>
+    // Retrieve the selected product details from sessionStorage
+    const selectedProduct = JSON.parse(sessionStorage.getItem('selectedProduct') || '{}');
+    // Pre-fill the price from the selected product
+    if (selectedProduct.price) {
+      document.getElementById('price').value = selectedProduct.price;
+    }
+    // Load college dropdown from Firebase "colleges" node and pre-select if it matches the product's college
+    function loadColleges() {
+      db.ref('colleges').on('value', function(snapshot) {
+        const collegeSelect = document.getElementById('college');
+        collegeSelect.innerHTML = '<option value="">Select College</option>';
+        snapshot.forEach(child => {
+          const college = child.val();
+          let selected = "";
+          if (child.key === selectedProduct.collegeId) { selected = "selected"; }
+          collegeSelect.innerHTML += `<option value="${child.key}" ${selected}>${college.name}</option>`;
+        });
+      });
+    }
+    loadColleges();
+
+    // On form submission, validate the fields and store buyer details before proceeding to Payment
+    document.getElementById('buyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const nameValue = document.getElementById('name').value.trim();
+      const whatsappValue = document.getElementById('whatsapp').value.trim();
+
+      // Validate Name: only letters (A-Z or a-z) allowed, and up to 25 characters
+      const nameRegex = /^[A-Za-z]+$/;
+      if (!nameRegex.test(nameValue)) {
+        alert("Name must contain only letters (A-Z or a-z) and no spaces or special characters.");
+        return;
+      }
+
+      // Validate WhatsApp Number: exactly 10 digits
+      const whatsappRegex = /^[0-9]{10}$/;
+      if (!whatsappRegex.test(whatsappValue)) {
+        alert("WhatsApp number must contain exactly 10 digits.");
+        return;
+      }
+      
+      const buyerDetails = {
+        name: nameValue,
+        whatsapp: whatsappValue,
+        college: document.getElementById('college').value, // storing college id
+        price: document.getElementById('price').value,
+        productName: selectedProduct.name || "",
+        productId: selectedProduct.productId || ""
+      };
+      sessionStorage.setItem('buyerDetails', JSON.stringify(buyerDetails));
+      window.location.href = 'payment.html';
+    });
+  </script>
+</body>
+</html>
