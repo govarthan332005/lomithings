@@ -115,3 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+function Random() {
+    window.open('random.html', '_blank'); // Replace with your target URL
+  }
