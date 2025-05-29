@@ -3,361 +3,1542 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LomiThings | What You Need As A Student</title>
-    <link rel="Icon" href="favicon.jpeg" type="image/jpeg">
-    <!-- Tailwind CSS -->
+    <title>lomithings/Devops - serve you to develop your dream</title>
+     <link rel="shortcut icon" href="/favicon.jpeg" type="image/x-icon" />
+  
+  <!-- PNG favicons for modern browsers -->
+  <link rel="icon" sizes="16x16" href="favicon-16x16.jpeg" />
+  <link rel="icon" sizes="32x32" href="favicon-32x32.jpeg" />
+  
+  <!-- SVG favicon (scalable) -->
+  <link rel="icon" href="favicon.jpeg" type="image/svg+xml" />
+  
+  <!-- Apple Touch Icon (for iOS home-screen bookmarks) -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=shopping_cart" />
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+        :root {
+            --primary: #6366F1;
+            --primary-light: #818CF8;
+            --primary-dark: #4F46E5;
+            --secondary: #EC4899;
+            --accent: #8B5CF6;
+            --background: #F9FAFB;
+            --text-primary: #1F2937;
+            --text-secondary: #4B5563;
+            --primary-color: #007bff;
+            --text-color: #333;
+            --background-color: white;
+            --header-height: 70px;
+            --transition-speed: 0.3s;
+            --mobile-menu-max-height: 400px;
+            --spacing: 1.5rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--background-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 calc(var(--spacing));
+            z-index: 1000;
+            transition: box-shadow var(--transition-speed) ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Shadow on scroll */
+        header.scrolled {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Smooth scrolling */
+        section {
+            scroll-margin-top: 80px;
+        }
+
+        /* Hero Section Particle Animation */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            50% {
+                transform: translateY(0) translateX(20px);
+            }
+            75% {
+                transform: translateY(20px) translateX(10px);
+            }
+        }
+
+        /* Price card hover */
+        .price-card {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Portfolio item hover */
+        .portfolio-item {
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item img {
+            transition: transform 0.8s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 0.9;
+        }
+
+        /* Button styles */
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::after {
+            left: 100%;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Process timeline */
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--primary-light);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--primary);
+        }
+
+        /* Loading spinner */
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid white;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Modal styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            margin: auto;
+            position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            animation: modalFadeIn 0.3s ease forwards;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #paymentModal .modal-content {
+            max-width: 480px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        #paymentModal .modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #paymentModal .modal-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        #paymentModal .modal-content::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 10px;
+        }
+
+        #successModal .modal-content {
+            max-width: 400px;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .modal-content {
+                max-width: 100%;
+            }
+            #paymentModal .modal-content {
+                padding-bottom: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #utrForm {
+                flex-direction: column;
+            }
+            #utrForm input, 
+            #utrForm button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            #utrForm button {
+                margin-left: 0 !important;
+            }
+        }
+
+        .modal .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 22px;
+            color: var(--text-secondary);
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+
+        #qrcode {
+            min-height: 192px;
+            min-width: 192px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .payment-app-btn {
+            transition: all 0.2s ease;
+        }
+
+        .payment-app-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        #backToOrderModal {
+            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            padding: 6px 0;
+        }
+
+        #backToOrderModal:hover {
+            color: var(--primary-dark);
+        }
+        header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  position: relative;
+}
+
+.logo img {
+  height: 50px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+}
+
+nav ul li {
+  margin-left: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  display: block;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 5px 0;
+  transition: all 0.3s ease;
+}
+
+.nav-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .nav-toggle:checked ~ nav {
+    max-height: 500px;
+  }
+
+  nav ul {
+    display: block;
+  }
+
+  nav ul li {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .nav-toggle:checked ~ .hamburger span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .nav-toggle:checked ~ .hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle:checked ~ .hamburger span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+}
+    </style>
 </head>
 <body>
-      <!-- Header -->
-    <header>
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center">
-                   <img src="logo.jpeg">
+
+<header style="position: fixed;">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <div class="logo">
+    <a href="#"><img src="logo.jpeg" alt="websitebuilder"></a>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <label for="nav-toggle" class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+</header>
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-0 overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="particle bg-indigo-300" style="width: 50px; height: 50px; top: 20%; left: 10%; animation-delay: 0s;"></div>
+            <div class="particle bg-pink-300" style="width: 70px; height: 70px; top: 60%; left: 5%; animation-delay: 1s;"></div>
+            <div class="particle bg-purple-300" style="width: 30px; height: 30px; top: 30%; left: 60%; animation-delay: 2s;"></div>
+            <div class="particle bg-indigo-200" style="width: 60px; height: 60px; top: 70%; left: 60%; animation-delay: 3s;"></div>
+            <div class="particle bg-pink-200" style="width: 40px; height: 40px; top: 10%; left: 80%; animation-delay: 4s;"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 py-20 md:py-32 relative z-10">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0" data-aos="fade-right" data-aos-duration="1000">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-800">
+                        Stand Out with a <span class="text-indigo-600">Professional</span> Portfolio(or)e-commerce Website
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Make a lasting impression with a stunning portfolio(or)e-commerce website that showcases your skills and helps you land your dream opportunities.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#pricing" class="btn-primary py-3 px-8 rounded-full text-white font-medium flex items-center justify-center text-center">
+                            <span>View Plans</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="#contact" class="bg-white text-indigo-600 border-2 border-indigo-600 py-3 px-8 rounded-full font-medium hover:bg-indigo-50 transition flex items-center justify-center text-center">
+                            <span>Book a Call</span>
+                            <i class="fas fa-phone ml-2"></i>
+                        </a>
+                    </div>
                 </div>
-                
-                <!-- Desktop Nav -->
-                <nav class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
-                    <a href="#home" class="nav-link text-gray-700 hover:text-blue-500 px-3 py-2 text-sm font-medium">Home</a>
-                    <a href="#memes" class="nav-link text-gray-700 hover:text-blue-500 px-3 py-2 text-sm font-medium">college MemeReviews</a>
-                    <a href="#chat" class="nav-link text-gray-700 hover:text-blue-500 px-3 py-2 text-sm font-medium">Chat RandomPerson</a>
-                    <a href="#about" class="nav-link text-gray-700 hover:text-blue-500 px-3 py-2 text-sm font-medium">About Us</a>
-                    <a href="#" class="nav-link text-gray-700 hover:text-blue-500 px-3 py-2 text-sm font-medium">Buy Portfolio</a>
-                    <a href="#" class="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 transition duration-300 ease-in-out">
-                        Contact Us
-                    </a>
-                </nav>
-                
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <div class="hamburger" id="hamburger-btn">
-                        <div class="hamburger-line"></div>
-                        <div class="hamburger-line"></div>
-                        <div class="hamburger-line"></div>
+                <div class="md:w-1/2" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="300">
+                    <div class="relative bg-gradient-to-br from-indigo-600 to-purple-600 p-3 rounded-xl shadow-2xl">
+                        <div class="bg-white rounded-lg p-4 shadow-inner">
+                            <div class="h-6 flex items-center mb-4">
+                                <div class="flex space-x-1.5">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                                </div>
+                                <div class="mx-auto bg-gray-200 rounded-full h-4 w-32"></div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="h-12 bg-indigo-50 rounded-lg flex items-center justify-between px-4">
+                                    <div class="h-4 w-20 bg-indigo-200 rounded"></div>
+                                    <div class="flex space-x-4">
+                                        <div class="h-3 w-8 bg-indigo-200 rounded"></div>
+                                        <div class="h-3 w-8 bg-indigo-200 rounded"></div>
+                                        <div class="h-3 w-8 bg-indigo-200 rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="h-36 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-lg flex items-center justify-center">
+                                    <div class="text-center">
+                                        <div class="h-6 w-40 bg-indigo-200 rounded mx-auto mb-2"></div>
+                                        <div class="h-4 w-64 bg-indigo-100 rounded mx-auto"></div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-3">
+                                    <div class="h-24 bg-gray-100 rounded-lg"></div>
+                                    <div class="h-24 bg-gray-100 rounded-lg"></div>
+                                    <div class="h-24 bg-gray-100 rounded-lg"></div>
+                                </div>
+                                <div class="h-20 bg-gray-50 rounded-lg"></div>
+                            </div>
+                        </div>
+                        <div class="absolute -top-5 -right-5 bg-yellow-300 h-10 w-10 rounded-full animate-pulse"></div>
+                        <div class="absolute -bottom-3 -left-3 bg-pink-400 h-6 w-6 rounded-full animate-pulse" style="animation-delay: 1s;"></div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Mobile Nav -->
-        <div id="mobile-menu" class="mobile-menu md:hidden fixed top-16 right-0 bottom-0 w-64 bg-white shadow-lg z-50">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="#home" class="block px-3 py-3 text-gray-700 hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out">Home</a>
-                <a href="#memes" class="block px-3 py-3 text-gray-700 hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out">college MemeReviews</a>
-                <a href="#chat" class="block px-3 py-3 text-gray-700 hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out">Chat RandomPerson</a>
-                <a href="#about" class="block px-3 py-3 text-gray-700 hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out">About Us</a>
-                <a href="#" class="block px-3 py-3 text-gray-700 hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out">Buy Portfolio</a>
-                <a href="#" class="block px-3 py-3 mt-4 text-center text-white bg-blue-500 hover:bg-blue-600 rounded-md transition duration-300 ease-in-out">Contact Us</a>
-            </div>
-        </div>
-    </header>
-    <!-- Animated Background -->
-    <div class="animated-background"></div>
+    </section>
     
-    <!-- Decorative Patterns -->
-    <div class="dot-pattern dot-pattern-1"></div>
-    <div class="dot-pattern dot-pattern-2"></div>
-
-    <div class="container" id="home">
-        <div class="main-container">
-            <!-- Content Section (Left on desktop, Bottom on mobile) -->
-            <div class="content-section">
-                <h1 class="first">Buy What You Need in<br> BTech Life For Lowest Cost</h1>
-                <div class="fancy-line"></div>
-                <p class="second">Explore our Store where you can buy the used or new products for your use, You can also sale your products by contacting Us, Remember One thing we provide you best services you need.</p>
-                <button class="btn">Explore Store<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg></button>
+    <!-- Benefits Section -->
+    <section class="py-16 bg-indigo-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose Our Services?</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">Get a professional portfolio(or)e-commerce that makes you stand out from the crowd and showcases your skills in the best possible way.</p>
             </div>
-
-            <!-- Gallery Section (Right on desktop, Top on mobile) -->
-            <div class="gallery-section">
-                <div class="gallery-container">
-                    <!-- Main center image -->
-                    <div class="main-image placeholder-image"><img src="college1.png" alt=""></div>
-                    
-                    <!-- 8 surrounding images -->
-                    <div class="gallery-image image-1 placeholder-image"><img src="drafter.jpg" alt=""></div>
-                    <div class="gallery-image image-2 placeholder-image"><img src="classnotes.png" alt=""></div>
-                    <div class="gallery-image image-3 placeholder-image"><img src="books.jpg" alt=""></div>
-                    <div class="gallery-image image-4 placeholder-image"><img src="pens.png" alt=""></div>
-                    <div class="gallery-image image-5 placeholder-image"><img src="calculator.jpg" alt=""></div>
-                    <div class="gallery-image image-6 placeholder-image"><img src="exchange.png" alt=""></div>
-     
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-indigo-600 text-4xl mb-4">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Fast Delivery</h3>
+                    <p class="text-gray-600">Get your professional portfolio ready in just 0-1 days. We prioritize quick turnaround without compromising on quality.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-indigo-600 text-4xl mb-4">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Mobile Responsive</h3>
+                    <p class="text-gray-600">All our websites are fully responsive and look perfect on all devices, from desktops to tablets and mobile phones.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-indigo-600 text-4xl mb-4">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">SEO Optimized</h3>
+                    <p class="text-gray-600">We build websites with SEO best practices in mind, helping you get discovered by potential employers and clients.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-
-
-
-    <div class="main-container1" id="memes">
-        <div class="flex flex-col md:flex-row flex-container items-center justify-between">
-            <!-- Left Section: Content -->
-            <div class="section w-full md:w-1/3 p-6 order-3-mobile">
-                <h1 class="text-3xl md:text-4xl font-bold mb-6 text-gray-800 leading-tight">Know about the college by memes</h1>
-                
-                <!-- Rating stars -->
-                <div class="star-rating flex mb-4">
-                    <i class="fas fa-star text-2xl"></i>
-                    <i class="fas fa-star text-2xl"></i>
-                    <i class="fas fa-star text-2xl"></i>
-                    <i class="fas fa-star text-2xl"></i>
-                    <i class="fas fa-star-half-alt text-2xl"></i>
-                    <span class="ml-2 text-gray-600 font-medium">4.5/5.0</span>
-                </div>
-                
-                <!-- Description -->
-                <p class="text-gray-600 mb-8 text-lg">
-                    Explore the hilarious reality of college life through memes that perfectly capture student experiences. From deadline panic to cafeteria food struggles, these memes tell the unfiltered story of campus life that no brochure will ever show you!
-                </p>
-                
-                <!-- Button -->
-                <button class="btn-primary text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg">
-                    Explore Memes
-                </button>
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">Choose the plan that fits your needs and take your online presence to the next level.</p>
             </div>
-            
-            <!-- Middle Section: Rocket -->
-            <div class="section w-full md:w-1/3 rocket-container order-2-mobile">
-                <div class="rocket">
-                    <!-- Modern Rocket Body -->
-                    <div class="rocket-nose-cone"></div>
-                    <div class="rocket-body">
-                        <div class="rocket-window"></div>
-                        <div class="rocket-window-small"></div>
-                        <div class="rocket-details">
-                            <div class="rocket-detail-line"></div>
-                            <div class="rocket-detail-line"></div>
-                            <div class="rocket-detail-line"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="price-card bg-white rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 px-6 py-8 text-white">
+                        <h3 class="text-2xl font-bold mb-1">Basic Portfolio</h3>
+                        <p class="opacity-80 mb-4">Perfect for students & beginners</p>
+                        <div class="flex items-end">
+                            <span class="text-3xl font-bold">₹399</span>
+                            <span class="opacity-80 ml-1">one-time</span>
                         </div>
                     </div>
-                    
-                    <div class="rocket-fin-left"></div>
-                    <div class="rocket-fin-right"></div>
-                    <div class="rocket-bottom"></div>
-                    
-                    <!-- Hanging Memes -->
-                    <div class="hanging-meme" style="left: -90px; top: 30px;">
-                        <div class="meme-card bg-yellow-200 p-2" style="width: 80px; height: 80px;">
-                            <div class="w-full h-full bg-white flex items-center justify-center text-xs font-bold text-gray-700 rounded">
-                                <div class="text-center">
-                                    <i class="fas fa-laugh-squint text-yellow-500 text-xl mb-1"></i>
-                                    <div>Exam Details</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="meme-string h-24"></div>
-                    </div>
-                    
-                    <div class="hanging-meme" style="right: -100px; top: 50px;">
-                        <div class="meme-card bg-blue-200 p-2" style="width: 90px; height: 90px;">
-                            <div class="w-full h-full bg-white flex items-center justify-center text-xs font-bold text-gray-700 rounded">
-                                <div class="text-center">
-                                    <i class="fas fa-coffee text-blue-500 text-xl mb-1"></i>
-                                    <div>All-Updates</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="meme-string h-20"></div>
-                    </div>
-                    
-                    <div class="hanging-meme" style="left: -75px; top: 150px;">
-                        <div class="meme-card bg-red-200 p-2" style="width: 75px; height: 75px;">
-                            <div class="w-full h-full bg-white flex items-center justify-center text-xs font-bold text-gray-700 rounded">
-                                <div class="text-center">
-                                    <i class="fas fa-utensils text-red-500 text-xl mb-1"></i>
-                                    <div>canteen food</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="meme-string h-22"></div>
-                    </div>
-                    
-                    <div class="hanging-meme" style="right: -85px; top: 170px;">
-                        <div class="meme-card bg-green-200 p-2" style="width: 75px; height: 75px;">
-                            <div class="w-full h-full bg-white flex items-center justify-center text-xs font-bold text-gray-700 rounded">
-                                <div class="text-center">
-                                    <i class="fas fa-dollar-sign text-green-500 text-xl mb-1"></i>
-                                    <div>college Fees</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="meme-string h-18"></div>
-                    </div>
-                    
-                    <div class="hanging-meme" style="left: -65px; top: 240px;">
-                        <div class="meme-card bg-purple-200 p-2" style="width: 70px; height: 70px;">
-                            <div class="w-full h-full bg-white flex items-center justify-center text-xs font-bold text-gray-700 rounded">
-                                <div class="text-center">
-                                    <i class="fas fa-bed text-purple-500 text-xl mb-1"></i>
-                                    <div>college events</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="meme-string h-16"></div>
-                    </div>
-                    
-                    <div class="hanging-meme" style="right: -95px; top: 230px;">
-                        <div class="meme-card bg-pink-200 p-2" style="width: 85px; height: 85px;">
-                            <div class="w-full h-full bg-white flex items-center justify-center text-xs font-bold text-gray-700 rounded">
-                                <div class="text-center">
-                                    <i class="fas fa-users text-pink-500 text-xl mb-1"></i>
-                                    <div>facilities</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="meme-string h-24"></div>
-                    </div>
-                    
-                    <div class="hanging-meme" style="left: -80px; top: 190px;">
-                        <div class="meme-card bg-indigo-200 p-2" style="width: 105px; height: 65px;">
-                            <div class="w-full h-full bg-white flex items-center justify-center text-xs font-bold text-gray-700 rounded">
-                                <div class="text-center">
-                                    <i class="fas fa-book text-indigo-500 text-xl mb-1"></i>
-                                    <div>Infrastructure</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="meme-string h-20"></div>
-                    </div>
-                    
-                    <div class="hanging-meme" style="right: -70px; top: 100px;">
-                        <div class="meme-card bg-orange-200 p-2" style="width: 80px; height: 70px;">
-                            <div class="w-full h-full bg-white flex items-center justify-center text-xs font-bold text-gray-700 rounded">
-                                <div class="text-center">
-                                    <i class="fas fa-graduation-cap text-orange-500 text-xl mb-1"></i>
-                                    <div>Graduation</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="meme-string h-18"></div>
-                    </div>
-                    
-                    <!-- Enhanced Rocket Fire -->
-                    <div class="rocket-fire-container">
-                        <div class="rocket-fire">
-                            <div class="fire-core"></div>
-                            <div class="fire-outer"></div>
-                            <div class="fire-outer-2"></div>
-                            <div class="fire-particles">
-                                <div class="particle"></div>
-                                <div class="particle"></div>
-                                <div class="particle"></div>
-                                <div class="particle"></div>
-                                <div class="particle"></div>
-                            </div>
-                        </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Single page professional design</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Mobile responsive layout</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Contact form</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Social media links</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Portfolio/projects section</span>
+                            </li>
+                            <li class="flex items-start text-gray-400">
+                                <i class="fas fa-times text-red-400 mt-1 mr-3"></i>
+                                <span>Animations & effects</span>
+                            </li>
+                            <li class="flex items-start text-gray-400">
+                                <i class="fas fa-times text-red-400 mt-1 mr-3"></i>
+                                <span>Multiple pages</span>
+                            </li>
+                        </ul>
+                        <button data-plan="basic" data-price="399" class="buy-btn btn-primary py-3 w-full rounded-lg flex items-center justify-center">
+                            <span>Get Started</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Right Section: Image -->
-            <div id="image-container" class="section order-1-mobile">
-            <img class="college" src="college.png" alt="college reviews">
+                <div class="price-card bg-white rounded-2xl overflow-hidden transform md:scale-105 relative" data-aos="fade-up">
+                    <div class="absolute top-0 right-0 bg-yellow-400 text-xs font-bold text-white px-3 py-1 rounded-bl-lg">POPULAR</div>
+                    <div class="bg-gradient-to-r from-purple-500 to-indigo-600 px-6 py-8 text-white">
+                        <h3 class="text-2xl font-bold mb-1">Animated Portfolio</h3>
+                        <p class="opacity-80 mb-4">Stand out with animations</p>
+                        <div class="flex items-end">
+                            <span class="text-3xl font-bold">₹599</span>
+                            <span class="opacity-80 ml-1">one-time</span>
                         </div>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Single page professional design</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Mobile responsive layout</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Contact form</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Social media links</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Portfolio/projects section</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span><strong>Modern animations & effects</strong></span>
+                            </li>
+                            <li class="flex items-start text-gray-400">
+                                <i class="fas fa-times text-red-400 mt-1 mr-3"></i>
+                                <span>Multiple pages</span>
+                            </li>
+                        </ul>
+                        <button data-plan="animated" data-price="599" class="buy-btn btn-primary py-3 w-full rounded-lg flex items-center justify-center">
+                            <span>Get Started</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="price-card bg-white rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-gradient-to-r from-pink-500 to-purple-600 px-6 py-8 text-white">
+                        <h3 class="text-2xl font-bold mb-1">Business Website</h3>
+                        <p class="opacity-80 mb-4">For small businesses & startups</p>
+                        <div class="flex items-end">
+                            <span class="text-3xl font-bold">₹1000-3000</span>
+                            <span class="opacity-80 ml-1">one-time</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span><strong>Multi-page</strong> professional design</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Mobile responsive layout</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Contact form</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Social media integration</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Portfolio/products showcase</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Modern animations & effects</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span><strong>SEO optimization & analytics</strong></span>
+                            </li>
+                        </ul>
+                        <button data-plan="business" data-price="1000" class="buy-btn btn-primary py-3 w-full rounded-lg flex items-center justify-center">
+                            <span>Get Started</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-    <div class="flex flex-col md:flex-row min-h-screen" id="chat">
-        <!-- Left Section -->
-        <div class="w-full1 md:w-1/2 bg-blue-50 p-6 md:p-12 lg:p-20 flex flex-col justify-center items-center">
-            <div class="max-w-lg">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-blue-900 mb-6 leading-tight tracking-tight">
-                    Connect With Random <span class="text-blue-600">Students</span> In Seconds
-                </h1>
-                
-                <p class="text-lg text-blue-700 mb-10 leading-relaxed">
-                    Break the ice and make new friends from around the campus. Our platform randomly pairs you with other students for meaningful conversations, study sessions, or just casual chats.
-                </p>
-                
-                <button onclick="Random()" class="bounce-btn bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg py-4 px-10 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center">
-                    <i class="fas fa-random mr-3"></i>
-                    Start Random Chat
-                </button>
-                
-                <div class="mt-10 flex items-center text-blue-700">
-                    <i class="fas fa-shield-alt mr-3 text-blue-500"></i>
-                    <p class="text-sm">Safe, anonymous, and moderated environment</p>
+    </section>
+    
+    <!-- Process Section -->
+    <section id="process" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">How We Build Your Website</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">Our streamlined process ensures we deliver a high-quality website that perfectly represents you.</p>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-12">
+                    <div class="timeline-item pb-10" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="text-xl font-bold mb-3">1. Information Gathering</h3>
+                        <p class="text-gray-600">We start by collecting all necessary information about your background, skills, projects, and preferences to create a website that truly represents you.</p>
+                    </div>
+                    <div class="timeline-item pb-10" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="text-xl font-bold mb-3">2. Design & Approval</h3>
+                        <p class="text-gray-600">Our designers create a custom mockup based on your requirements. We'll share it with you for feedback and make any necessary adjustments until you're completely satisfied.</p>
+                    </div>
+                    <div class="timeline-item pb-10" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="text-xl font-bold mb-3">3. Development</h3>
+                        <p class="text-gray-600">Once the design is approved, our development team brings it to life with clean, efficient code and implements all the requested features and functionality.</p>
+                    </div>
+                    <div class="timeline-item pb-10" data-aos="fade-up" data-aos-delay="400">
+                        <h3 class="text-xl font-bold mb-3">4. Testing & Optimization</h3>
+                        <p class="text-gray-600">We thoroughly test your website across different devices and browsers to ensure everything works perfectly. We also optimize it for speed and performance.</p>
+                    </div>
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+                        <h3 class="text-xl font-bold mb-3">5. Launch & Support</h3>
+                        <p class="text-gray-600">After final approval, we launch your website and provide you with all necessary files and instructions. We offer 7 days of free support to address any issues or questions.</p>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Right Section -->
-        <div class="w-full md:w-1/2 bg-primary min-h-[500px] flex justify-center items-center p-8 relative overflow-hidden">
-            <!-- Particle Effects -->
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            
-            <!-- Phone Chat Illustration -->
-            <div class="phone-outline">
-                <div class="phone-notch"></div>
-                <div class="phone-screen">
-                    <div class="chat-header">
-                        <div class="avatar bg-blue-500">
-                            <i class="fas fa-user-graduate"></i>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Recent Work</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">Check out some of the websites we've created for our clients.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="portfolio-item rounded-xl overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="600">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="absolute inset-0 bg-yellow-600">
+                            <img src="project.png" alt="Artist Portfolio Project">
+                        </div>
+                        <div class="absolute inset-0 opacity-20 bg-grid-pattern"></div>
+                        <div class="absolute bottom-0 left-0 right-0 portfolio-overlay p-6">
+                            <h3 class="text-white text-xl font-bold">Artist Portfolio</h3>
+                            <p class="text-white opacity-90">Animated Portfolio</p>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white">
+                        <p class="text-gray-600 mb-4">A creative portfolio for a digital artist with canvas animations, artwork showcase, and commission information.</p>
+                        <a href="#" class="text-indigo-600 font-medium hover:text-indigo-800 transition flex items-center">
+                            <span>View Project</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-indigo-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">Don't just take our word for it. Here's what our clients have to say about their experience.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white p-6 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="ml-2 text-gray-600">5.0</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">"The portfolio they created for me helped me land my dream job! The design was exactly what I wanted, and the process was super smooth."</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-indigo-200 flex items-center justify-center text-indigo-600 font-bold mr-3">R</div>
+                        <div>
+                            <h4 class="font-medium">Rahul Sharma</h4>
+                            <p class="text-sm text-gray-500">UX Designer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="ml-2 text-gray-600">5.0</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">"I was amazed by the animations they added to my portfolio! It really makes my work stand out and I've received so many compliments on it."</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-indigo-200 flex items-center justify-center text-indigo-600 font-bold mr-3">P</div>
+                        <div>
+                            <h4 class="font-medium">Priya Patel</h4>
+                            <p class="text-sm text-gray-500">Graphic Designer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="ml-2 text-gray-600">4.5</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">"My small business website has doubled my inquiries within a month! The design is professional and exactly what I needed at an affordable price."</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-indigo-200 flex items-center justify-center text-indigo-600 font-bold mr-3">A</div>
+                        <div>
+                            <h4 class="font-medium">Arjun Mehta</h4>
+                            <p class="text-sm text-gray-500">Bakery Owner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Book a Consultation Call</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">Have questions or want to discuss your project? Schedule a free consultation call with our team.</p>
+            </div>
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden" data-aos="fade-up">
+                    <div class="grid grid-cols-1 md:grid-cols-5">
+                        <div class="md:col-span-2 bg-gradient-to-br from-indigo-600 to-purple-600 p-8 text-white">
+                            <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-start">
+                                    <div class="bg-white/20 w-10 h-10 rounded-lg flex items-center justify-center mr-4 shrink-0">
+                                        <i class="fas fa-phone text-white"></i>
+                                    </div>
+                                    <div>
+                                        <p class="opacity-80 text-sm">Phone Number</p>
+                                        <p class="font-medium">+91 8688967845</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-white/20 w-10 h-10 rounded-lg flex items-center justify-center mr-4 shrink-0">
+                                        <i class="fas fa-envelope text-white"></i>
+                                    </div>
+                                    <div>
+                                        <p class="opacity-80 text-sm">Email</p>
+                                        <p class="font-medium">Lomithings@Gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-white/20 w-10 h-10 rounded-lg flex items-center justify-center mr-4 shrink-0">
+                                        <i class="fas fa-clock text-white"></i>
+                                    </div>
+                                    <div>
+                                        <p class="opacity-80 text-sm">Working Hours</p>
+                                        <p class="font-medium">Mon - Sat: 9AM to 7PM</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-10">
+                                <p class="mb-4 opacity-80">Follow us on social media</p>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="bg-white/20 w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/30 transition">
+                                        <i class="fab fa-instagram text-white"></i>
+                                    </a>
+                                    <a href="#" class="bg-white/20 w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/30 transition">
+                                        <i class="fab fa-facebook-f text-white"></i>
+                                    </a>
+                                    <a href="#" class="bg-white/20 w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/30 transition">
+                                        <i class="fab fa-twitter text-white"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:col-span-3 p-8">
+                            <form id="consultationForm">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                    <div>
+                                        <label for="name" class="block text-gray-700 font-medium mb-2">Full Name *</label>
+                                        <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="mobile" class="block text-gray-700 font-medium mb-2">Mobile Number *</label>
+                                        <input type="tel" id="mobile" name="mobile" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                                    </div>
+                                </div>
+                                <div class="mb-6">
+                                    <label for="planType" class="block text-gray-700 font-medium mb-2">Interested In *</label>
+                                    <select id="planType" name="planType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                                        <option value="" disabled selected>Select a plan</option>
+                                        <option value="basic">Basic Portfolio (₹399)</option>
+                                        <option value="animated">Animated Portfolio (₹599)</option>
+                                        <option value="business">Business Website (₹1000+)</option>
+                                        <option value="other">Other / Not Sure Yet</option>
+                                    </select>
+                                </div>
+                                <div class="mb-8">
+                                    <label for="message" class="block text-gray-700 font-medium mb-2">Your Message *</label>
+                                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none" required></textarea>
+                                </div>
+                                <button type="submit" class="btn-primary py-3 px-8 rounded-lg inline-flex items-center">
+                                    <span>Submit Request</span>
+                                    <i class="fas fa-paper-plane ml-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">Find answers to common questions about our services.</p>
+            </div>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <div class="bg-white rounded-xl p-6 shadow-md" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-bold mb-3">How long does it take to build a portfolio website?</h3>
+                    <p class="text-gray-600">Typically, we deliver portfolio websites within 0-1 business days from the date we receive all the required information. Business websites may take 7-14 days depending on complexity.</p>
+                </div> 
+                <div class="bg-white rounded-xl p-6 shadow-md" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-xl font-bold mb-3">Do I need to purchase a domain and hosting separately?</h3>
+                    <p class="text-gray-600">Yes, you'll need to purchase domain and hosting separately. We can recommend affordable options and help you set everything up for a small additional fee, or you can handle it yourself.</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-md" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-xl font-bold mb-3">What information do I need to provide?</h3>
+                    <p class="text-gray-600">You'll need to provide your bio/about information, project details, skills, contact information, social media links, and any images or content you want included on your site.</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-md" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-xl font-bold mb-3">Do you offer website maintenance services?</h3>
+                    <p class="text-gray-600">Yes, we offer website maintenance packages starting at ₹299/month. This includes updates, security patches, and minor content changes. You can also request one-time updates for a small fee.</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-md" data-aos="fade-up" data-aos-delay="500">
+                    <h3 class="text-xl font-bold mb-3">What payment methods do you accept?</h3>
+                    <p class="text-gray-600">We accept payments via UPI (Google Pay, PhonePe, Paytm), bank transfer, and major credit/debit cards. We require full payment before starting work on your project.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="md:col-span-1">
+                    <div class="flex items-center mb-4">
+                        <span class="text-indigo-400 font-bold text-2xl">Lomithings</span>
+                        <span class="text-pink-400 font-bold text-2xl">Devops</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">Professional portfolio(or)e-commerce websites for students and small businesses at affordable prices.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition">Basic Portfolio</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition">Animated Portfolio</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition">Business Website</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Website Maintenance</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Domain & Hosting Setup</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition">Pricing</a></li>
+                        <li><a href="#process" class="text-gray-400 hover:text-white transition">Our Process</a></li>
+                        <li><a href="#portfolio" class="text-gray-400 hover:text-white transition">Portfolio</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt text-indigo-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">+91 8688967845</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-indigo-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">lomithings@Gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-indigo-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">Tirupati, Andhra Pradesh, India</span>
+                        </li> 
+                        <li class="flex items-start">
+                            <i class="fas fa-clock text-indigo-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">Mon - Sat: 9AM to 7PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 LomithingsDevops. All rights reserved.</p>
+                    <div class="flex space-x-6 text-sm text-gray-500">
+                        <a href="#" class="hover:text-gray-400 transition">Privacy Policy</a>
+                        <a href="#" class="hover:text-gray-400 transition">Terms of Service</a>
+                        <a href="#" class="hover:text-gray-400 transition">Refund Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/918688967845?text=Hi,%20I'm%20interested%20in%20your%20portfolio%20website%20services." class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- Order Detail Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content bg-white rounded-2xl max-w-lg w-full p-0">
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-4 text-white">
+                <h3 class="text-xl font-bold">Complete Your Order</h3>
+            </div>
+            <div class="p-6">
+                <form id="orderForm">
+                    <div class="mb-6 bg-indigo-50 p-4 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-semibold text-lg" id="plan-name">Basic Portfolio</h4>
+                                <p class="text-gray-600" id="plan-description">Professional single-page portfolio</p>
+                            </div>
+                            <div class="text-indigo-600 font-bold text-xl" id="plan-price">₹399</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="order-name" class="block text-gray-700 font-medium mb-2">Full Name *</label>
+                            <input type="text" id="order-name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
                         </div>
                         <div>
-                            <p class="text-white font-bold">Random Student</p>
-                            <div class="flex items-center">
-                                <p class="text-xs text-blue-200">Online</p>
-                                <div class="status-dot ml-2"></div>
-                            </div>
+                            <label for="order-mobile" class="block text-gray-700 font-medium mb-2">Mobile Number *</label>
+                            <input type="tel" id="order-mobile" name="mobile" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
                         </div>
                     </div>
-                    
-                    <div class="chat-content">
-                        <div class="chat-bubble bubble-left">
-                            <p>Hi there! 👋 I'm also studying at the university. What's your major?</p>
-                        </div>
-                        
-                        <div class="chat-bubble bubble-right">
-                            <p>Hey! I'm in Computer Science. This random chat feature is pretty cool!</p>
-                        </div>
-                        
-                        <div class="chat-bubble bubble-left bubble-user">
-                            <p>Nice to meet you! Do you want to join our study group for the midterms?</p>
-                        </div>
-                        
-                        <div class="typing-indicator">
-                            <div class="typing-dot"></div>
-                            <div class="typing-dot"></div>
-                            <div class="typing-dot"></div>
-                        </div>
+                    <div class="mb-4">
+                        <label for="order-email" class="block text-gray-700 font-medium mb-2">Email Address *</label>
+                        <input type="email" id="order-email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
                     </div>
-                </div>
+                    <div class="mb-6">
+                        <label for="order-notes" class="block text-gray-700 font-medium mb-2">Project Details</label>
+                        <textarea id="order-notes" name="notes" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none" placeholder="Tell us about your portfolio requirements..."></textarea>
+                    </div>
+                    <div class="flex justify-between">
+                        <button type="button" id="closeOrderModal" class="border border-gray-300 bg-white text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-50 transition">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn-primary py-2 px-6 rounded-lg inline-flex items-center">
+                            <span>Proceed to Payment</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
-            
-            <!-- Connection Animation -->
-            <div class="connection-animation">
-                <div class="connection-circle">
-                    <div class="text-white text-lg font-bold">Connecting...</div>
+        </div>
+    </div>
+    
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content bg-white rounded-2xl max-w-lg w-full p-0">
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-4 text-white flex justify-between items-center">
+                <h3 class="text-xl font-bold">Complete Your Payment</h3>
+                <button id="closePaymentModal" class="text-white hover:text-gray-200">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="mb-6 bg-indigo-50 p-4 rounded-lg flex justify-between items-center">
+                    <div>
+                        <div class="text-lg font-semibold" id="payment-plan-name">Basic Portfolio</div>
+                        <div class="text-gray-600 text-sm">Order Total</div>
+                    </div>
+                    <div class="text-indigo-600 font-bold text-xl" id="payment-amount">₹399</div>
+                </div>
+                <div class="mb-6">
+                    <h4 class="font-semibold mb-3">Scan to Pay via UPI</h4>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-5 flex justify-center">
+                        <div id="qrcode" class="w-40 h-40 flex items-center justify-center"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 text-center mt-2">Open any UPI app and scan the QR</p>
+                </div>
+                <div class="mb-6">
+                    <h4 class="font-semibold mb-3">Or pay using UPI Apps</h4>
+                    <div class="grid grid-cols-4 gap-3">
+                        <button class="postal-app-btn p-2 border border-gray-200 rounded-lg flex flex-col items-center hover:bg-gray-100 transition" data-app="gpay">
+                            <img src="https://i.ibb.co/WNHBcpvF/googlepay.png" alt="Google Pay" class="w-9 h-9">
+                            <span class="text-xs mt-1">GPay</span>
+                        </button>
+                        <button class="payment-app-btn p-2 border border-gray-200 rounded-lg flex flex-col items-center hover:bg-gray-100 transition" data-app="phonepe">
+                            <img src="https://i.ibb.co/hxm3kQV5/phonepay.png" alt="PhonePe" class="w-9 h-9">
+                            <span class="text-xs mt-1">PhonePe</span>
+                        </button>
+                        <button class="payment-app-btn p-2 border border-gray-200 rounded-lg flex flex-col items-center hover:bg-gray-100 transition" data-app="paytm">
+                            <img src="https://i.ibb.co/s92Cx9p1/paytm.png" alt="Paytm" class="w-9 h-9">
+                            <span class="text-xs mt-1">Paytm</span>
+                        </button>
+                        <button id="generic-upi-btn" class="p-2 border border-gray-200 rounded-lg flex flex-col items-center hover:bg-gray-100 transition bg-indigo-50">
+                            <i class="fas fa-university text-indigo-600 text-2xl"></i>
+                            <span class="text-xs mt-1">Other UPI</span>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-400 text-center mt-2">Choose your favorite UPI app</p>
+                </div>
+                <div class="mb-4">
+                    <button id="backToOrderModal" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        <span>Back to details</span>
+                    </button>
+                </div>
+                <div class="mb-6">
+                    <h4 class="font-semibold mb-3">After payment</h4>
+                    <form id="utrForm" class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+                        <input type="text" id="utr-number" placeholder="Enter UPI transaction/UTR ID" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 flex items-center justify-center">
+                            <span>Submit</span>
+                            <i class="fas fa-check ml-2"></i>
+                        </button>
+                    </form>
+                    <p class="text-xs text-gray-400 mt-2">Helps us verify your payment faster</p>
+                </div>
+                <div class="text-center mt-6">
+                    <span class="text-xs text-gray-400">Secured by UPI - Lomithings Devops</span>
                 </div>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content bg-white rounded-2xl max-w-md w-full p-6 text-center">
+            <div class="mb-6">
+                <div class="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto">
+                    <i class="fas fa-check-circle text-4xl text-green-500"></i>
+                </div>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">Thank You!</h3>
+            <p class="text-gray-600 mb-6">We've received your payment details.<br>We'll contact you within 24 hours!</p>
+            <button id="closeSuccessModal" class="btn-primary py-3 px-8 rounded-lg w-full">
+                <span>Back to Home</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/firebase@9.17.1/firebase-app-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/firebase@9.17.1/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    
+    <script>
+        // Firebase Initialization
+        const firebaseConfig = {
+            apiKey: "AIzaSyDixufxD2KlUSPgqPIJQNatpQ0XEnpTouA",
+            authDomain: "lumilearn-df84e.firebaseapp.com",
+            databaseURL: "https://lumilearn-df84e-default-rtdb.firebaseio.com",
+            projectId: "lumilearn-df84e",
+            storageBucket: "lumilearn-df84e.appspot.com",
+            messagingSenderId: "972914519676",
+            appId: "1:972914519676:web:8c4c2a47beb1864954e3f9",
+            measurementId: "G-4LZM3VLSSS"
+        };
+
+        let db;
+        let firebaseInitialized = false;
+
+        function initFirebase() {
+            try {
+                if (typeof firebase !== 'undefined') {
+                    firebase.initializeApp(firebaseConfig);
+                    db = firebase.firestore();
+                    firebaseInitialized = true;
+                    console.log("Firebase initialized successfully");
+                } else {
+                    console.error("Firebase SDK not available");
+                }
+            } catch (error) {
+                console.error("Firebase initialization error:", error);
+                if (error.code === 'app/duplicate-app') {
+                    db = firebase.firestore();
+                    firebaseInitialized = true;
+                    console.log("Firebase was already initialized");
+                }
+            }
+        }
+
+        // AOS Initialization
+        function initAOS() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+        }
+
+        // Check if Mobile Device
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        // Load QR Code Library
+        function loadQRCodeLibrary() {
+            return new Promise((resolve, reject) => {
+                if (typeof QRCode !== 'undefined') {
+                    resolve();
+                    return;
+                }
+                const script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js";
+                script.onload = () => resolve();
+                script.onerror = () => reject(new Error("Failed to load QR Code library"));
+                document.head.appendChild(script);
+            });
+        }
+
+        // Generate QR Code
+        async function generateQRCode(amount) {
+            const qrcodeElement = document.getElementById('qrcode');
+            if (!qrcodeElement) return;
+            qrcodeElement.innerHTML = '<div class="flex justify-center items-center h-48 md:h-64"><div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-indigo-500"></div></div>';
+            try {
+                if (typeof QRCode === 'undefined') await loadQRCodeLibrary();
+                qrcodeElement.innerHTML = '';
+                const upiId = '8688967845@upi';
+                const name = 'LomithingsDevops';
+                const plan = sessionStorage.getItem('selectedPlan');
+                const desc = `Payment for ${plan === 'basic' ? 'Basic Portfolio' : plan === 'animated' ? 'Animated Portfolio' : 'Business Website'}`;
+                const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&tn=${encodeURIComponent(desc)}`;
+                new QRCode(qrcodeElement, {
+                    text: upiUrl,
+                    width: 192,
+                    height: 192,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            } catch (error) {
+                console.error("Error generating QR code:", error);
+                qrcodeElement.innerHTML = '<p class="text-red-500 text-center">Unable to generate QR code. Please use the app buttons or manual payment details.</p>';
+            }
+        }
+
+        // Modal Setup
+        function setupModals() {
+            const orderModal = document.getElementById('orderModal');
+            const paymentModal = document.getElementById('paymentModal');
+            const successModal = document.getElementById('successModal');
+            const closeOrderModal = document.getElementById('closeOrderModal');
+            const closePaymentModal = document.getElementById('closePaymentModal');
+            const closeSuccessModal = document.getElementById('closeSuccessModal');
+            const backToOrderModal = document.getElementById('backToOrderModal');
+
+            document.querySelectorAll('.buy-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const plan = e.currentTarget.dataset.plan;
+                    const price = e.currentTarget.dataset.price;
+                    document.getElementById('plan-name').textContent = plan === 'basic' ? 'Basic Portfolio' : plan === 'animated' ? 'Animated Portfolio' : 'Business Website';
+                    document.getElementById('plan-description').textContent = plan === 'basic' ? 'Professional single-page portfolio' : plan === 'animated' ? 'Portfolio with modern animations' : 'Custom business website';
+                    document.getElementById('plan-price').textContent = plan === 'business' ? '₹1000-3000' : `₹${price}`;
+                    sessionStorage.setItem('selectedPlan', plan);
+                    sessionStorage.setItem('selectedPrice', price);
+                    orderModal.classList.add('show');
+                });
+            });
+
+            document.getElementById('orderForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('order-name').value;
+                const mobile = document.getElementById('order-mobile').value;
+                const email = document.getElementById('order-email').value;
+                const notes = document.getElementById('order-notes').value;
+                sessionStorage.setItem('customerName', name);
+                sessionStorage.setItem('customerMobile', mobile);
+                sessionStorage.setItem('customerEmail', email);
+                sessionStorage.setItem('customerNotes', notes);
+                orderModal.classList.remove('show');
+                const plan = sessionStorage.getItem('selectedPlan');
+                const price = sessionStorage.getItem('selectedPrice');
+                document.getElementById('payment-plan-name').textContent = plan === 'basic' ? 'Basic Portfolio' : plan === 'animated' ? 'Animated Portfolio' : 'Business Website';
+                document.getElementById('payment-amount').textContent = plan === 'business' ? '₹1000-3000' : `₹${price}`;
+                if (plan !== 'business') generateQRCode(price);
+                else document.getElementById('qrcode').innerHTML = '<p class="text-center">Please contact us for business plan payment.</p>';
+                paymentModal.classList.add('show');
+            });
+
+            document.querySelectorAll('.payment-app-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const app = e.currentTarget.dataset.app;
+                    const price = sessionStorage.getItem('selectedPrice');
+                    const plan = sessionStorage.getItem('selectedPlan');
+                    const upiId = '8688967845@upi';
+                    const name = 'LomithingsDevops';
+                    const desc = `Payment for ${plan === 'basic' ? 'Basic Portfolio' : plan === 'animated' ? 'Animated Portfolio' : 'Business Website'}`;
+                    let paymentLink;
+                    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${price}&cu=INR&tn=${encodeURIComponent(desc)}`;
+                    if (app === 'gpay') paymentLink = `tez://upi/pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${price}&cu=INR&tn=${encodeURIComponent(desc)}`;
+                    else if (app === 'phonepe') paymentLink = `phonepe://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${price}&cu=INR&tn=${encodeURIComponent(desc)}`;
+                    else if (app === 'paytm') paymentLink = `paytmmp://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${price}&cu=INR&tn=${encodeURIComponent(desc)}`;
+                    try {
+                        window.location.href = paymentLink;
+                        setTimeout(() => { window.location.href = upiUrl; }, 2000);
+                    } catch (error) {
+                        window.location.href = upiUrl;
+                    }
+                });
+            });
+
+            document.getElementById('generic-upi-btn').addEventListener('click', () => {
+                const price = sessionStorage.getItem('selectedPrice');
+                const plan = sessionStorage.getItem('selectedPlan');
+                const upiId = '8688967845@upi';
+                const name = 'LomithingsDevops';
+                const desc = `Payment for ${plan === 'basic' ? 'Basic Portfolio' : plan === 'animated' ? 'Animated Portfolio' : 'Business Website'}`;
+                const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${price}&cu=INR&tn=${encodeURIComponent(desc)}`;
+                window.location.href = upiUrl;
+            });
+
+            document.getElementById('utrForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const utrNumber = document.getElementById('utr-number').value;
+                if (!utrNumber) {
+                    alert('Please enter the transaction ID/UTR');
+                    return;
+                }
+                const orderData = {
+                    plan: sessionStorage.getItem('selectedPlan'),
+                    price: sessionStorage.getItem('selectedPrice'),
+                    name: sessionStorage.getItem('customerName'),
+                    mobile: sessionStorage.getItem('customerMobile'),
+                    email: sessionStorage.getItem('customerEmail'),
+                    notes: sessionStorage.getItem('customerNotes'),
+                    utrNumber: utrNumber,
+                    timestamp: new Date().toISOString(),
+                    status: 'pending'
+                };
+                if (firebaseInitialized) {
+                    try {
+                        db.collection('orders').add(orderData)
+                            .then(() => {
+                                paymentModal.classList.remove('show');
+                                successModal.classList.add('show');
+                                clearSessionStorage();
+                            })
+                            .catch((error) => {
+                                console.error("Error submitting order to Firebase:", error);
+                                saveOrderToLocalStorage(orderData);
+                            });
+                    } catch (error) {
+                        console.error("Error accessing Firebase:", error);
+                        saveOrderToLocalStorage(orderData);
+                    }
+                } else {
+                    saveOrderToLocalStorage(orderData);
+                }
+            });
+
+            closeOrderModal.addEventListener('click', () => orderModal.classList.remove('show'));
+            closePaymentModal.addEventListener('click', () => paymentModal.classList.remove('show'));
+            closeSuccessModal.addEventListener('click', () => successModal.classList.remove('show'));
+            backToOrderModal.addEventListener('click', () => {
+                paymentModal.classList.remove('show');
+                orderModal.classList.add('show');
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === orderModal) orderModal.classList.remove('show');
+                if (e.target === paymentModal) paymentModal.classList.remove('show');
+                if (e.target === successModal) successModal.classList.remove('show');
+            });
+        }
+
+        // Local Storage Fallback
+        function saveOrderToLocalStorage(orderData) {
+            try {
+                const existingOrders = JSON.parse(localStorage.getItem('portfolioPro_orders') || '[]');
+                existingOrders.push(orderData);
+                localStorage.setItem('portfolioPro_orders', JSON.stringify(existingOrders));
+                document.getElementById('paymentModal').classList.remove('show');
+                document.getElementById('successModal').classList.add('show');
+                clearSessionStorage();
+            } catch (error) {
+                console.error("Error saving to localStorage:", error);
+                alert("There was an error processing your order. Please try again or contact us directly.");
+            }
+        }
+
+        // Clear Session Storage
+        function clearSessionStorage() {
+            sessionStorage.removeItem('selectedPlan');
+            sessionStorage.removeItem('selectedPrice');
+            sessionStorage.removeItem('customerName');
+            sessionStorage.removeItem('customerMobile');
+            sessionStorage.removeItem('customerEmail');
+            sessionStorage.removeItem('customerNotes');
+        }
+
+        // Consultation Form Setup
+        function setupConsultationForm() {
+            const form = document.getElementById('consultationForm');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = {
+                    name: document.getElementById('name').value,
+                    mobile: document.getElementById('mobile').value,
+                    planType: document.getElementById('planType').value,
+                    message: document.getElementById('message').value,
+                    timestamp: new Date().toISOString(),
+                    source: 'consultation_form'
+                };
+                if (firebaseInitialized) {
+                    try {
+                        db.collection('consultations').add(formData)
+                            .then(() => {
+                                form.innerHTML = `
+                                    <div class="text-center p-6">
+                                        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                            <i class="fas fa-check text-2xl text-green-500"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold mb-2">Thank You!</h3>
+                                        <p class="text-gray-600">Your consultation request has been submitted. We'll contact you within 24 hours.</p>
+                                    </div>
+                                `;
+                            })
+                            .catch((error) => {
+                                console.error("Error submitting consultation request:", error);
+                                saveConsultationToLocalStorage(formData);
+                            });
+                    } catch (error) {
+                        console.error("Error accessing Firebase:", error);
+                        saveConsultationToLocalStorage(formData);
+                    }
+                } else {
+                    saveConsultationToLocalStorage(formData);
+                }
+            });
+
+            function saveConsultationToLocalStorage(formData) {
+                try {
+                    const existingConsultations = JSON.parse(localStorage.getItem('portfolioPro_consultations') || '[]');
+                    existingConsultations.push(formData);
+                    localStorage.setItem('portfolioPro_consultations', JSON.stringify(existingConsultations));
+                    form.innerHTML = `
+                        <div class="text-center p-6">
+                            <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-check text-2xl text-green-500"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Thank You!</h3>
+                            <p class="text-gray-600">Your consultation request has been submitted. We'll contact you within 24 hours.</p>
+                        </div>
+                    `;
+                } catch (error) {
+                    console.error("Error saving to localStorage:", error);
+                    alert("There was an error processing your request. Please try again or contact us directly via WhatsApp.");
+                }
+            }
+        }
+
+        // Initialize Components
+        document.addEventListener('DOMContentLoaded', () => {
+            initFirebase();
+            initAOS();
+            setupModals();
+            setupConsultationForm();
+        });
+    </script>
 </body>
 </html>
