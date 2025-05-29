@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Pro - Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366F1;
+            --primary-light: #818CF8;
+            --primary-dark: #4F46E5;
+            --secondary: #EC4899;
+            --accent: #8B5CF6;
+            --background: #F9FAFB;
+            --text-primary: #1F2937;
+            --text-secondary: #4B5563;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #D946EF;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 280px;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 1023px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 40;
+                height: 100%;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .sidebar-overlay {
+                display: none;
+            }
+            
+            .sidebar-overlay.show {
+                display: block;
+            }
+        }
+        
+        /* Table styles */
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background-color: #F3F4F6;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        
+        tr:hover {
+            background-color: #F9FAFB;
+        }
+        
+        /* Status badge styles */
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .status-pending {
+            background-color: #FEF3C7;
+            color: #92400E;
+        }
+        
+        .status-success {
+            background-color: #D1FAE5;
+            color: #065F46;
+        }
+        
+        .status-failed {
+            background-color: #FEE2E2;
+            color: #B91C1C;
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            border: 3px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid #6366F1;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Tab styles */
+        .tab {
+            cursor: pointer;
+            padding: 0.75rem 1.5rem;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+        }
+        
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        /* Delete confirmation modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            max-width: 500px;
+            width: 100%;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <button id="sidebar-toggle" class="lg:hidden mr-4 text-gray-600 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                
+                <div class="flex items-center">
+                    <span class="text-indigo-600 font-bold text-xl">Portfolio</span>
+                    <span class="text-pink-500 font-bold text-xl">Pro</span>
+                    <span class="ml-2 text-gray-600">Admin</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center">
+                <div class="relative mr-4">
+                    <button id="refresh-btn" class="p-2 rounded-full hover:bg-gray-100 focus:outline-none" title="Refresh Data">
+                        <i class="fas fa-sync-alt text-gray-600"></i>
+                    </button>
+                </div>
+                
+                <a href="index.html" target="_blank" class="p-2 rounded-full hover:bg-gray-100" title="View Website">
+                    <i class="fas fa-external-link-alt text-gray-600"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex h-full bg-gray-50">
+        <!-- Sidebar Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden sidebar-overlay"></div>
+        
+        <!-- Sidebar -->
+        <aside id="sidebar" class="bg-white shadow-lg lg:h-screen sidebar">
+            <div class="p-6">
+                <nav class="space-y-1">
+                    <a href="#dashboard" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg bg-indigo-50 text-indigo-600 font-medium">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    
+                    <a href="#payments" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-50 font-medium">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Payment Details</span>
+                    </a>
+                    
+                    <a href="#bookings" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-50 font-medium">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>Call Bookings</span>
+                    </a>
+                    
+                    <a href="#export" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-50 font-medium">
+                        <i class="fas fa-file-export"></i>
+                        <span>Export Data</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="flex-1 p-6">
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="section active">
+                <div class="mb-6">
+                    <h1 class="text-2xl font-bold text-gray-800">Dashboard</h1>
+                    <p class="text-gray-600">Overview of payments and bookings</p>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-gray-500 text-sm font-medium">Total Orders</h3>
+                            <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                                <i class="fas fa-shopping-cart text-indigo-600"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span id="total-orders" class="text-3xl font-bold text-gray-800">0</span>
+                            <span class="ml-2 text-sm text-green-500 font-medium flex items-center">
+                                <i class="fas fa-arrow-up mr-1"></i>
+                                <span id="orders-increase">0%</span>
+                            </span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">From all channels</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-gray-500 text-sm font-medium">Total Revenue</h3>
+                            <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
+                                <i class="fas fa-rupee-sign text-green-600"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span class="text-3xl font-bold text-gray-800">₹</span>
+                            <span id="total-revenue" class="text-3xl font-bold text-gray-800">0</span>
+                            <span class="ml-2 text-sm text-green-500 font-medium flex items-center">
+                                <i class="fas fa-arrow-up mr-1"></i>
+                                <span id="revenue-increase">0%</span>
+                            </span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Total earnings</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-gray-500 text-sm font-medium">Call Bookings</h3>
+                            <div class="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center">
+                                <i class="fas fa-phone-alt text-purple-600"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span id="total-bookings" class="text-3xl font-bold text-gray-800">0</span>
+                            <span class="ml-2 text-sm text-green-500 font-medium flex items-center">
+                                <i class="fas fa-arrow-up mr-1"></i>
+                                <span id="bookings-increase">0%</span>
+                            </span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Total consultation requests</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-gray-500 text-sm font-medium">Pending Orders</h3>
+                            <div class="h-10 w-10 rounded-full bg-yellow-100 flex items-center justify-center">
+                                <i class="fas fa-clock text-yellow-600"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline">
+                            <span id="pending-orders" class="text-3xl font-bold text-gray-800">0</span>
+                            <span class="ml-2 text-sm text-yellow-500 font-medium flex items-center">
+                                <i class="fas fa-exclamation-circle mr-1"></i>
+                                <span id="pending-percentage">0%</span>
+                            </span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Require verification</p>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="bg-white rounded-lg shadow overflow-hidden mb-8">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h2 class="font-semibold text-lg text-gray-800">Recent Activity</h2>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div id="recent-activity-container" class="space-y-4">
+                            <div class="flex items-center justify-center py-8">
+                                <div class="spinner mr-3"></div>
+                                <p class="text-gray-500">Loading recent activity...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dashboard Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="font-semibold text-lg text-gray-800">Orders by Plan Type</h2>
+                        </div>
+                        <div class="p-6">
+                            <canvas id="orders-chart" height="300"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="font-semibold text-lg text-gray-800">Weekly Revenue</h2>
+                        </div>
+                        <div class="p-6">
+                            <canvas id="revenue-chart" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Payment Details Section -->
+            <section id="payments-section" class="section hidden">
+                <div class="mb-6 flex justify-between items-center">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">Payment Details</h1>
+                        <p class="text-gray-600">Manage all payment information</p>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                        <div class="relative">
+                            <input type="text" id="payment-search" placeholder="Search orders..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            <div class="absolute left-3 top-2.5 text-gray-400">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                        
+                        <select id="payment-filter" class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            <option value="all">All Orders</option>
+                            <option value="pending">Pending</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="table-container">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Customer</th>
+                                    <th>Plan</th>
+                                    <th>Amount</th>
+                                    <th>UTR</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payments-table-body">
+                                <tr>
+                                    <td colspan="8" class="text-center py-8">
+                                        <div class="flex items-center justify-center">
+                                            <div class="spinner mr-3"></div>
+                                            <p class="text-gray-500">Loading payment data...</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="px-6 py-4 border-t border-gray-200 flex justify-between items-center">
+                        <p class="text-gray-600 text-sm">Showing <span id="payment-count">0</span> orders</p>
+                        <div class="flex space-x-1">
+                            <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50 disabled:opacity-50" id="prev-payment-page" disabled>
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="px-3 py-1 rounded bg-indigo-50 border border-indigo-100 text-indigo-600">1</button>
+                            <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50 disabled:opacity-50" id="next-payment-page" disabled>
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Call Bookings Section -->
+            <section id="bookings-section" class="section hidden">
+                <div class="mb-6 flex justify-between items-center">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">Call Bookings</h1>
+                        <p class="text-gray-600">Manage consultation requests</p>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                        <div class="relative">
+                            <input type="text" id="booking-search" placeholder="Search bookings..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            <div class="absolute left-3 top-2.5 text-gray-400">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                        
+                        <select id="booking-filter" class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            <option value="all">All Requests</option>
+                            <option value="pending">Pending</option>
+                            <option value="contacted">Contacted</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="table-container">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Plan Interest</th>
+                                    <th>Message</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bookings-table-body">
+                                <tr>
+                                    <td colspan="8" class="text-center py-8">
+                                        <div class="flex items-center justify-center">
+                                            <div class="spinner mr-3"></div>
+                                            <p class="text-gray-500">Loading booking data...</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="px-6 py-4 border-t border-gray-200 flex justify-between items-center">
+                        <p class="text-gray-600 text-sm">Showing <span id="booking-count">0</span> bookings</p>
+                        <div class="flex space-x-1">
+                            <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50 disabled:opacity-50" id="prev-booking-page" disabled>
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="px-3 py-1 rounded bg-indigo-50 border border-indigo-100 text-indigo-600">1</button>
+                            <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50 disabled:opacity-50" id="next-booking-page" disabled>
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Export Data Section -->
+            <section id="export-section" class="section hidden">
+                <div class="mb-6">
+                    <h1 class="text-2xl font-bold text-gray-800">Export Data</h1>
+                    <p class="text-gray-600">Download data for your records</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="font-semibold text-lg text-gray-800">Payment Details</h2>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-600 mb-6">Export all payment records with customer details and status information.</p>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Date Range</label>
+                                    <div class="flex items-center space-x-3">
+                                        <input type="date" id="payment-start-date" class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <span class="text-gray-500">to</span>
+                                        <input type="date" id="payment-end-date" class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Export Format</label>
+                                    <select id="payment-export-format" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <option value="csv">CSV</option>
+                                        <option value="excel">Excel</option>
+                                        <option value="json">JSON</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <button id="export-payments-btn" class="mt-6 btn-primary py-2 px-6 rounded-lg inline-flex items-center">
+                                <i class="fas fa-download mr-2"></i>
+                                <span>Export Payment Data</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="font-semibold text-lg text-gray-800">Call Bookings</h2>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-600 mb-6">Export all consultation requests with customer contact information.</p>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Date Range</label>
+                                    <div class="flex items-center space-x-3">
+                                        <input type="date" id="booking-start-date" class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <span class="text-gray-500">to</span>
+                                        <input type="date" id="booking-end-date" class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Export Format</label>
+                                    <select id="booking-export-format" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <option value="csv">CSV</option>
+                                        <option value="excel">Excel</option>
+                                        <option value="json">JSON</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <button id="export-bookings-btn" class="mt-6 btn-primary py-2 px-6 rounded-lg inline-flex items-center">
+                                <i class="fas fa-download mr-2"></i>
+                                <span>Export Booking Data</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Order Details Modal -->
+    <div id="order-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-gray-800">Order Details</h3>
+                <button id="close-order-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="order-details-content" class="space-y-4">
+                <!-- Order details will be loaded here -->
+                <div class="flex items-center justify-center py-8">
+                    <div class="spinner mr-3"></div>
+                    <p class="text-gray-500">Loading order details...</p>
+                </div>
+            </div>
+            
+            <div class="flex justify-between items-center mt-6 pt-6 border-t border-gray-200">
+                <div>
+                    <select id="order-status-update" class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="pending">Pending</option>
+                        <option value="verified">Verified</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                
+                <div class="flex space-x-3">
+                    <button id="update-order-btn" class="btn-primary py-2 px-4 rounded-lg">
+                        Update Status
+                    </button>
+                    <button id="close-order-details" class="py-2 px-4 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Booking Details Modal -->
+    <div id="booking-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-gray-800">Booking Details</h3>
+                <button id="close-booking-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="booking-details-content" class="space-y-4">
+                <!-- Booking details will be loaded here -->
+                <div class="flex items-center justify-center py-8">
+                    <div class="spinner mr-3"></div>
+                    <p class="text-gray-500">Loading booking details...</p>
+                </div>
+            </div>
+            
+            <div class="flex justify-between items-center mt-6 pt-6 border-t border-gray-200">
+                <div>
+                    <select id="booking-status-update" class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="pending">Pending</option>
+                        <option value="contacted">Contacted</option>
+                        <option value="scheduled">Scheduled</option>
+                        <option value="completed">Completed</option>
+                        <option value="no-show">No Show</option>
+                    </select>
+                </div>
+                
+                <div class="flex space-x-3">
+                    <button id="update-booking-btn" class="btn-primary py-2 px-4 rounded-lg">
+                        Update Status
+                    </button>
+                    <button id="close-booking-details" class="py-2 px-4 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-confirmation-modal" class="modal">
+        <div class="modal-content">
+            <div class="text-center mb-6">
+                <div class="mx-auto w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-exclamation-triangle text-red-500 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800">Confirm Deletion</h3>
+                <p class="text-gray-600 mt-2" id="delete-confirmation-text">Are you sure you want to delete this item? This action cannot be undone.</p>
+            </div>
+            
+            <div class="flex justify-center space-x-4">
+                <button id="confirm-delete-btn" class="bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition">
+                    Delete
+                </button>
+                <button id="cancel-delete-btn" class="py-2 px-6 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/firebase@9.17.1/firebase-app-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/firebase@9.17.1/firebase-firestore-compat.js"></script>
+    
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDixufxD2KlUSPgqPIJQNatpQ0XEnpTouA",
+            authDomain: "lumilearn-df84e.firebaseapp.com",
+            databaseURL: "https://lumilearn-df84e-default-rtdb.firebaseio.com",
+            projectId: "lumilearn-df84e",
+            storageBucket: "lumilearn-df84e.appspot.com",
+            messagingSenderId: "972914519676",
+            appId: "1:972914519676:web:8c4c2a47beb1864954e3f9",
+            measurementId: "G-4LZM3VLSSS"
+        };
+
+        // Initialize Firebase
+        let db;
+        let firebaseInitialized = false;
+        
+        function initFirebase() {
+            try {
+                if (typeof firebase !== 'undefined') {
+                    firebase.initializeApp(firebaseConfig);
+                    db = firebase.firestore();
+                    firebaseInitialized = true;
+                    console.log("Firebase initialized successfully");
+                    loadAllData();
+                } else {
+                    console.error("Firebase SDK not available");
+                    useMockData();
+                }
+            } catch (error) {
+                console.error("Firebase initialization error:", error);
+                
+                // Check if Firebase was already initialized
+                if (error.code === 'app/duplicate-app') {
+                    db = firebase.firestore();
+                    firebaseInitialized = true;
+                    console.log("Firebase was already initialized");
+                    loadAllData();
+                } else {
+                    console.error("Unable to initialize Firebase:", error);
+                    useMockData();
+                }
+            }
+        }
+        
+        // Mock data for when Firebase is not available
+        const mockOrders = [
+            {
+                id: "ORD12345",
+                plan: "basic",
+                price: "399",
+                name: "Rahul Sharma",
+                mobile: "9876543210",
+                email: "rahul@example.com",
+                notes: "Looking for a simple portfolio",
+                utrNumber: "UTR123456789",
+                timestamp: new Date().toISOString(),
+                status: "pending"
+            },
+            {
+                id: "ORD12346",
+                plan: "animated",
+                price: "599",
+                name: "Priya Patel",
+                mobile: "9876543211",
+                email: "priya@example.com",
+                notes: "Want animations and interactive elements",
+                utrNumber: "UTR987654321",
+                timestamp: new Date(Date.now() - 86400000).toISOString(), // 1 day ago
+                status: "completed"
+            },
+            {
+                id: "ORD12347",
+                plan: "business",
+                price: "1499",
+                name: "Arjun Mehta",
+                mobile: "9876543212",
+                email: "arjun@example.com",
+                notes: "Need a website for my bakery business",
+                utrNumber: "UTR456789123",
+                timestamp: new Date(Date.now() - 172800000).toISOString(), // 2 days ago
+                status: "in-progress"
+            }
+        ];
+        
+        const mockConsultations = [
+            {
+                id: "CON12345",
+                name: "Vikram Singh",
+                mobile: "9876543213",
+                planType: "basic",
+                message: "Want to know more about the basic plan features",
+                timestamp: new Date().toISOString(),
+                status: "pending"
+            },
+            {
+                id: "CON12346",
+                name: "Neha Gupta",
+                mobile: "9876543214",
+                planType: "animated",
+                message: "Interested in animated portfolio, need more details",
+                timestamp: new Date(Date.now() - 86400000).toISOString(), // 1 day ago
+                status: "contacted"
+            },
+            {
+                id: "CON12347",
+                name: "Ravi Kumar",
+                mobile: "9876543215",
+                planType: "business",
+                message: "Looking for a website for my startup",
+                timestamp: new Date(Date.now() - 172800000).toISOString(), // 2 days ago
+                status: "completed"
+            }
+        ];
+        
+        // Use mock data when Firebase is not available
+        function useMockData() {
+            console.log("Using mock data");
+            renderDashboard(mockOrders, mockConsultations);
+            renderPaymentTable(mockOrders);
+            renderBookingTable(mockConsultations);
+            
+            // Set data counts
+            document.getElementById('payment-count').textContent = mockOrders.length;
+            document.getElementById('booking-count').textContent = mockConsultations.length;
+        }
+        
+        // Load all data from Firebase
+        function loadAllData() {
+            if (!firebaseInitialized) {
+                console.error("Firebase not initialized");
+                useMockData();
+                return;
+            }
+            
+            Promise.all([
+                db.collection('orders').get(),
+                db.collection('consultations').get()
+            ])
+            .then(([ordersSnapshot, consultationsSnapshot]) => {
+                const orders = ordersSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                
+                const consultations = consultationsSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                
+                renderDashboard(orders, consultations);
+                renderPaymentTable(orders);
+                renderBookingTable(consultations);
+                
+                // Set data counts
+                document.getElementById('payment-count').textContent = orders.length;
+                document.getElementById('booking-count').textContent = consultations.length;
+            })
+            .catch(error => {
+                console.error("Error loading data:", error);
+                useMockData();
+            });
+        }
+        
+        // Render Dashboard
+        function renderDashboard(orders, consultations) {
+            // Stats
+            const totalOrders = orders.length;
+            const totalRevenue = orders.reduce((acc, order) => acc + parseInt(order.price || 0), 0);
+            const totalBookings = consultations.length;
+            const pendingOrders = orders.filter(order => order.status === 'pending').length;
+            
+            document.getElementById('total-orders').textContent = totalOrders;
+            document.getElementById('total-revenue').textContent = totalRevenue;
+            document.getElementById('total-bookings').textContent = totalBookings;
+            document.getElementById('pending-orders').textContent = pendingOrders;
+            
+            // Calculate percentages
+            document.getElementById('orders-increase').textContent = '12%'; // Mock percentage
+            document.getElementById('revenue-increase').textContent = '8%'; // Mock percentage
+            document.getElementById('bookings-increase').textContent = '15%'; // Mock percentage
+            document.getElementById('pending-percentage').textContent = Math.round((pendingOrders / totalOrders) * 100) + '%';
+            
+            // Recent Activity
+            const recentActivityContainer = document.getElementById('recent-activity-container');
+            recentActivityContainer.innerHTML = '';
+            
+            // Combine and sort orders and consultations by timestamp
+            const allActivities = [...orders, ...consultations]
+                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+                .slice(0, 5);
+            
+            if (allActivities.length === 0) {
+                recentActivityContainer.innerHTML = `
+                    <div class="text-center py-6">
+                        <p class="text-gray-500">No recent activity</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            allActivities.forEach(activity => {
+                const isOrder = 'utrNumber' in activity;
+                const timestamp = new Date(activity.timestamp);
+                const timeAgo = getTimeAgo(timestamp);
+                
+                const activityItem = document.createElement('div');
+                activityItem.className = 'flex items-start border-b border-gray-100 pb-4';
+                
+                if (isOrder) {
+                    activityItem.innerHTML = `
+                        <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-shopping-cart text-indigo-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-medium">${activity.name} placed an order</h4>
+                                    <p class="text-gray-600 text-sm">Ordered: ${activity.plan === 'basic' ? 'Basic Portfolio' : 
+                                                                          activity.plan === 'animated' ? 'Animated Portfolio' : 
+                                                                          'Business Website'} (₹${activity.price})</p>
+                                </div>
+                                <span class="text-gray-500 text-sm">${timeAgo}</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    activityItem.innerHTML = `
+                        <div class="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-phone-alt text-purple-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-medium">${activity.name} requested a consultation</h4>
+                                    <p class="text-gray-600 text-sm">Interested in: ${activity.planType === 'basic' ? 'Basic Portfolio' : 
+                                                                                  activity.planType === 'animated' ? 'Animated Portfolio' : 
+                                                                                  activity.planType === 'business' ? 'Business Website' : 
+                                                                                  'Other'}</p>
+                                </div>
+                                <span class="text-gray-500 text-sm">${timeAgo}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                recentActivityContainer.appendChild(activityItem);
+            });
+            
+            // Initialize Charts
+            initializeCharts(orders);
+        }
+        
+        // Render Payment Table
+        function renderPaymentTable(orders) {
+            const tableBody = document.getElementById('payments-table-body');
+            tableBody.innerHTML = '';
+            
+            if (orders.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="text-center py-8">
+                            <p class="text-gray-500">No payment data available</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Sort orders by timestamp (newest first)
+            orders.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                
+                // Format timestamp
+                const date = new Date(order.timestamp);
+                const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+                
+                // Determine status badge class
+                let statusBadgeClass = '';
+                switch (order.status) {
+                    case 'pending':
+                        statusBadgeClass = 'status-pending';
+                        break;
+                    case 'completed':
+                    case 'verified':
+                    case 'in-progress':
+                        statusBadgeClass = 'status-success';
+                        break;
+                    case 'cancelled':
+                        statusBadgeClass = 'status-failed';
+                        break;
+                    default:
+                        statusBadgeClass = 'status-pending';
+                }
+                
+                row.innerHTML = `
+                    <td>${order.id.substring(0, 8)}</td>
+                    <td>${formattedDate}</td>
+                    <td>
+                        <div>
+                            <p class="font-medium">${order.name}</p>
+                            <p class="text-sm text-gray-600">${order.mobile}</p>
+                        </div>
+                    </td>
+                    <td>${order.plan === 'basic' ? 'Basic Portfolio' : 
+                         order.plan === 'animated' ? 'Animated Portfolio' : 
+                         'Business Website'}</td>
+                    <td>₹${order.price}</td>
+                    <td>${order.utrNumber}</td>
+                    <td><span class="status-badge ${statusBadgeClass}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></td>
+                    <td>
+                        <div class="flex space-x-2">
+                            <button class="view-order-btn p-1.5 rounded-md hover:bg-indigo-50 text-indigo-600" data-id="${order.id}">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="edit-order-btn p-1.5 rounded-md hover:bg-yellow-50 text-yellow-600" data-id="${order.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="delete-order-btn p-1.5 rounded-md hover:bg-red-50 text-red-600" data-id="${order.id}">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            // Add event listeners for action buttons
+            addPaymentActionListeners();
+        }
+        
+        // Render Booking Table
+        function renderBookingTable(consultations) {
+            const tableBody = document.getElementById('bookings-table-body');
+            tableBody.innerHTML = '';
+            
+            if (consultations.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="text-center py-8">
+                            <p class="text-gray-500">No booking data available</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Sort consultations by timestamp (newest first)
+            consultations.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            
+            consultations.forEach(consultation => {
+                const row = document.createElement('tr');
+                
+                // Format timestamp
+                const date = new Date(consultation.timestamp);
+                const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+                
+                // Determine status badge class
+                let statusBadgeClass = '';
+                switch (consultation.status) {
+                    case 'pending':
+                        statusBadgeClass = 'status-pending';
+                        break;
+                    case 'contacted':
+                    case 'scheduled':
+                        statusBadgeClass = 'status-success';
+                        break;
+                    case 'no-show':
+                        statusBadgeClass = 'status-failed';
+                        break;
+                    case 'completed':
+                        statusBadgeClass = 'status-success';
+                        break;
+                    default:
+                        statusBadgeClass = 'status-pending';
+                }
+                
+                row.innerHTML = `
+                    <td>${consultation.id.substring(0, 8)}</td>
+                    <td>${formattedDate}</td>
+                    <td>${consultation.name}</td>
+                    <td>${consultation.mobile}</td>
+                    <td>${consultation.planType === 'basic' ? 'Basic Portfolio' : 
+                         consultation.planType === 'animated' ? 'Animated Portfolio' : 
+                         consultation.planType === 'business' ? 'Business Website' : 
+                         'Other'}</td>
+                    <td>${consultation.message.length > 40 ? consultation.message.substring(0, 40) + '...' : consultation.message}</td>
+                    <td><span class="status-badge ${statusBadgeClass}">${consultation.status ? (consultation.status.charAt(0).toUpperCase() + consultation.status.slice(1)) : 'Pending'}</span></td>
+                    <td>
+                        <div class="flex space-x-2">
+                            <button class="view-booking-btn p-1.5 rounded-md hover:bg-indigo-50 text-indigo-600" data-id="${consultation.id}">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="edit-booking-btn p-1.5 rounded-md hover:bg-yellow-50 text-yellow-600" data-id="${consultation.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="delete-booking-btn p-1.5 rounded-md hover:bg-red-50 text-red-600" data-id="${consultation.id}">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            // Add event listeners for action buttons
+            addBookingActionListeners();
+        }
+        
+        // Format time ago
+        function getTimeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            
+            let interval = seconds / 31536000;
+            if (interval > 1) {
+                return Math.floor(interval) + " years ago";
+            }
+            interval = seconds / 2592000;
+            if (interval > 1) {
+                return Math.floor(interval) + " months ago";
+            }
+            interval = seconds / 86400;
+            if (interval > 1) {
+                return Math.floor(interval) + " days ago";
+            }
+            interval = seconds / 3600;
+            if (interval > 1) {
+                return Math.floor(interval) + " hours ago";
+            }
+            interval = seconds / 60;
+            if (interval > 1) {
+                return Math.floor(interval) + " minutes ago";
+            }
+            return Math.floor(seconds) + " seconds ago";
+        }
+        
+        // Initialize Dashboard Charts
+        function initializeCharts(orders) {
+            // Plan distribution chart
+            const planTypes = {
+                basic: 0,
+                animated: 0,
+                business: 0
+            };
+            
+            orders.forEach(order => {
+                if (order.plan in planTypes) {
+                    planTypes[order.plan]++;
+                }
+            });
+            
+            const ordersChartCtx = document.getElementById('orders-chart').getContext('2d');
+            new Chart(ordersChartCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Basic Portfolio', 'Animated Portfolio', 'Business Website'],
+                    datasets: [{
+                        data: [planTypes.basic, planTypes.animated, planTypes.business],
+                        backgroundColor: ['#6366F1', '#8B5CF6', '#EC4899'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+            
+            // Weekly revenue chart
+            const weeklyData = generateMockWeeklyData();
+            
+            const revenueChartCtx = document.getElementById('revenue-chart').getContext('2d');
+            new Chart(revenueChartCtx, {
+                type: 'line',
+                data: {
+                    labels: weeklyData.labels,
+                    datasets: [{
+                        label: 'Revenue',
+                        data: weeklyData.data,
+                        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                        borderColor: '#6366F1',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#6366F1',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '₹' + value;
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Generate mock weekly data for the revenue chart
+        function generateMockWeeklyData() {
+            const labels = [];
+            const data = [];
+            
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            
+            for (let i = 6; i >= 0; i--) {
+                const dayIndex = (dayOfWeek - i + 7) % 7;
+                labels.push(days[dayIndex]);
+                
+                // Generate random data between 0 and 3000
+                data.push(Math.floor(Math.random() * 3000));
+            }
+            
+            return { labels, data };
+        }
+        
+        // Add event listeners for order action buttons
+        function addPaymentActionListeners() {
+            // View order details
+            document.querySelectorAll('.view-order-btn').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    const orderId = e.currentTarget.dataset.id;
+                    showOrderDetails(orderId);
+                });
+            });
+            
+            // Edit order
+            document.querySelectorAll('.edit-order-btn').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    const orderId = e.currentTarget.dataset.id;
+                    showOrderDetails(orderId, true);
+                });
+            });
+            
+            // Delete order
+            document.querySelectorAll('.delete-order-btn').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    const orderId = e.currentTarget.dataset.id;
+                    showDeleteConfirmation('order', orderId);
+                });
+            });
+        }
+        
+        // Add event listeners for booking action buttons
+        function addBookingActionListeners() {
+            // View booking details
+            document.querySelectorAll('.view-booking-btn').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    const bookingId = e.currentTarget.dataset.id;
+                    showBookingDetails(bookingId);
+                });
+            });
+            
+            // Edit booking
+            document.querySelectorAll('.edit-booking-btn').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    const bookingId = e.currentTarget.dataset.id;
+                    showBookingDetails(bookingId, true);
+                });
+            });
+            
+            // Delete booking
+            document.querySelectorAll('.delete-booking-btn').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    const bookingId = e.currentTarget.dataset.id;
+                    showDeleteConfirmation('booking', bookingId);
+                });
+            });
+        }
+        
+        // Show Order Details Modal
+        function showOrderDetails(orderId, isEditable = false) {
+            const modal = document.getElementById('order-details-modal');
+            const contentContainer = document.getElementById('order-details-content');
+            const statusSelect = document.getElementById('order-status-update');
+            const updateBtn = document.getElementById('update-order-btn');
+            
+            modal.classList.add('show');
+            contentContainer.innerHTML = `
+                <div class="flex items-center justify-center py-8">
+                    <div class="spinner mr-3"></div>
+                    <p class="text-gray-500">Loading order details...</p>
+                </div>
+            `;
+            
+            // Check if using mock data
+            if (!firebaseInitialized) {
+                const order = mockOrders.find(o => o.id === orderId);
+                if (order) {
+                    renderOrderDetails(order, contentContainer, statusSelect);
+                } else {
+                    contentContainer.innerHTML = `
+                        <div class="text-center py-6">
+                            <p class="text-gray-500">Order not found</p>
+                        </div>
+                    `;
+                }
+                return;
+            }
+            
+            // Get order from Firebase
+            db.collection('orders').doc(orderId).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const order = { id: doc.id, ...doc.data() };
+                        renderOrderDetails(order, contentContainer, statusSelect);
+                    } else {
+                        contentContainer.innerHTML = `
+                            <div class="text-center py-6">
+                                <p class="text-gray-500">Order not found</p>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error getting order:", error);
+                    contentContainer.innerHTML = `
+                        <div class="text-center py-6">
+                            <p class="text-red-500">Error loading order details</p>
+                        </div>
+                    `;
+                });
+            
+            // Set up update button functionality
+            updateBtn.onclick = function() {
+                const newStatus = statusSelect.value;
+                updateOrderStatus(orderId, newStatus);
+            };
+        }
+        
+        // Render Order Details in Modal
+        function renderOrderDetails(order, container, statusSelect) {
+            // Format timestamp
+            const date = new Date(order.timestamp);
+            const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+            
+            container.innerHTML = `
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-sm text-gray-500">Order ID</p>
+                        <p class="font-medium">${order.id}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Date</p>
+                        <p class="font-medium">${formattedDate}</p>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <p class="text-sm text-gray-500">Customer Details</p>
+                    <div class="border rounded-lg p-4 mt-2">
+                        <p class="font-medium">${order.name}</p>
+                        <p class="text-gray-600">Phone: ${order.mobile}</p>
+                        <p class="text-gray-600">Email: ${order.email}</p>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <p class="text-sm text-gray-500">Order Details</p>
+                    <div class="border rounded-lg p-4 mt-2">
+                        <div class="flex justify-between items-center mb-2">
+                            <p class="font-medium">${order.plan === 'basic' ? 'Basic Portfolio' : 
+                                               order.plan === 'animated' ? 'Animated Portfolio' : 
+                                               'Business Website'}</p>
+                            <p class="font-bold">₹${order.price}</p>
+                        </div>
+                        <p class="text-gray-600">UTR Number: ${order.utrNumber}</p>
+                        <p class="text-gray-600">Status: <span class="status-badge ${order.status === 'pending' ? 'status-pending' : 
+                                                                                  order.status === 'cancelled' ? 'status-failed' : 
+                                                                                  'status-success'}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></p>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <p class="text-sm text-gray-500">Customer Notes</p>
+                    <div class="border rounded-lg p-4 mt-2">
+                        <p class="text-gray-600">${order.notes || 'No notes provided'}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Set the current status in the dropdown
+            statusSelect.value = order.status;
+        }
+        
+        // Show Booking Details Modal
+        function showBookingDetails(bookingId, isEditable = false) {
+            const modal = document.getElementById('booking-details-modal');
+            const contentContainer = document.getElementById('booking-details-content');
+            const statusSelect = document.getElementById('booking-status-update');
+            const updateBtn = document.getElementById('update-booking-btn');
+            
+            modal.classList.add('show');
+            contentContainer.innerHTML = `
+                <div class="flex items-center justify-center py-8">
+                    <div class="spinner mr-3"></div>
+                    <p class="text-gray-500">Loading booking details...</p>
+                </div>
+            `;
+            
+            // Check if using mock data
+            if (!firebaseInitialized) {
+                const booking = mockConsultations.find(b => b.id === bookingId);
+                if (booking) {
+                    renderBookingDetails(booking, contentContainer, statusSelect);
+                } else {
+                    contentContainer.innerHTML = `
+                        <div class="text-center py-6">
+                            <p class="text-gray-500">Booking not found</p>
+                        </div>
+                    `;
+                }
+                return;
+            }
+            
+            // Get booking from Firebase
+            db.collection('consultations').doc(bookingId).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const booking = { id: doc.id, ...doc.data() };
+                        renderBookingDetails(booking, contentContainer, statusSelect);
+                    } else {
+                        contentContainer.innerHTML = `
+                            <div class="text-center py-6">
+                                <p class="text-gray-500">Booking not found</p>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error getting booking:", error);
+                    contentContainer.innerHTML = `
+                        <div class="text-center py-6">
+                            <p class="text-red-500">Error loading booking details</p>
+                        </div>
+                    `;
+                });
+            
+            // Set up update button functionality
+            updateBtn.onclick = function() {
+                const newStatus = statusSelect.value;
+                updateBookingStatus(bookingId, newStatus);
+            };
+        }
+        
+        // Render Booking Details in Modal
+        function renderBookingDetails(booking, container, statusSelect) {
+            // Format timestamp
+            const date = new Date(booking.timestamp);
+            const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+            
+            container.innerHTML = `
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-sm text-gray-500">Booking ID</p>
+                        <p class="font-medium">${booking.id}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Date</p>
+                        <p class="font-medium">${formattedDate}</p>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <p class="text-sm text-gray-500">Customer Details</p>
+                    <div class="border rounded-lg p-4 mt-2">
+                        <p class="font-medium">${booking.name}</p>
+                        <p class="text-gray-600">Phone: ${booking.mobile}</p>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <p class="text-sm text-gray-500">Consultation Details</p>
+                    <div class="border rounded-lg p-4 mt-2">
+                        <p class="font-medium">Interested in: ${booking.planType === 'basic' ? 'Basic Portfolio' : 
+                                                            booking.planType === 'animated' ? 'Animated Portfolio' : 
+                                                            booking.planType === 'business' ? 'Business Website' : 
+                                                            'Other'}</p>
+                        <p class="text-gray-600 mt-2">Status: <span class="status-badge ${!booking.status || booking.status === 'pending' ? 'status-pending' : 
+                                                                                     booking.status === 'no-show' ? 'status-failed' : 
+                                                                                     'status-success'}">${booking.status ? (booking.status.charAt(0).toUpperCase() + booking.status.slice(1)) : 'Pending'}</span></p>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <p class="text-sm text-gray-500">Customer Message</p>
+                    <div class="border rounded-lg p-4 mt-2">
+                        <p class="text-gray-600">${booking.message}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Set the current status in the dropdown
+            statusSelect.value = booking.status || 'pending';
+        }
+        
+        // Show Delete Confirmation Modal
+        function showDeleteConfirmation(type, id) {
+            const modal = document.getElementById('delete-confirmation-modal');
+            const confirmText = document.getElementById('delete-confirmation-text');
+            const confirmBtn = document.getElementById('confirm-delete-btn');
+            
+            modal.classList.add('show');
+            
+            if (type === 'order') {
+                confirmText.textContent = `Are you sure you want to delete order #${id.substring(0, 8)}? This action cannot be undone.`;
+                confirmBtn.onclick = function() {
+                    deleteOrder(id);
+                };
+            } else if (type === 'booking') {
+                confirmText.textContent = `Are you sure you want to delete booking #${id.substring(0, 8)}? This action cannot be undone.`;
+                confirmBtn.onclick = function() {
+                    deleteBooking(id);
+                };
+            }
+        }
+        
+        // Update Order Status
+        function updateOrderStatus(orderId, newStatus) {
+            if (!firebaseInitialized) {
+                // Mock update for demo
+                const orderIndex = mockOrders.findIndex(o => o.id === orderId);
+                if (orderIndex !== -1) {
+                    mockOrders[orderIndex].status = newStatus;
+                    renderPaymentTable(mockOrders);
+                    document.getElementById('order-details-modal').classList.remove('show');
+                    
+                    // Show success toast
+                    showToast('Order status updated successfully');
+                }
+                return;
+            }
+            
+            db.collection('orders').doc(orderId).update({
+                status: newStatus,
+                updatedAt: new Date().toISOString()
+            })
+            .then(() => {
+                loadAllData();
+                document.getElementById('order-details-modal').classList.remove('show');
+                
+                // Show success toast
+                showToast('Order status updated successfully');
+            })
+            .catch(error => {
+                console.error("Error updating order:", error);
+                showToast('Error updating order status', 'error');
+            });
+        }
+        
+        // Update Booking Status
+        function updateBookingStatus(bookingId, newStatus) {
+            if (!firebaseInitialized) {
+                // Mock update for demo
+                const bookingIndex = mockConsultations.findIndex(b => b.id === bookingId);
+                if (bookingIndex !== -1) {
+                    mockConsultations[bookingIndex].status = newStatus;
+                    renderBookingTable(mockConsultations);
+                    document.getElementById('booking-details-modal').classList.remove('show');
+                    
+                    // Show success toast
+                    showToast('Booking status updated successfully');
+                }
+                return;
+            }
+            
+            db.collection('consultations').doc(bookingId).update({
+                status: newStatus,
+                updatedAt: new Date().toISOString()
+            })
+            .then(() => {
+                loadAllData();
+                document.getElementById('booking-details-modal').classList.remove('show');
+                
+                // Show success toast
+                showToast('Booking status updated successfully');
+            })
+            .catch(error => {
+                console.error("Error updating booking:", error);
+                showToast('Error updating booking status', 'error');
+            });
+        }
+        
+        // Delete Order
+        function deleteOrder(orderId) {
+            if (!firebaseInitialized) {
+                // Mock delete for demo
+                const orderIndex = mockOrders.findIndex(o => o.id === orderId);
+                if (orderIndex !== -1) {
+                    mockOrders.splice(orderIndex, 1);
+                    renderPaymentTable(mockOrders);
+                    document.getElementById('delete-confirmation-modal').classList.remove('show');
+                    
+                    // Show success toast
+                    showToast('Order deleted successfully');
+                }
+                return;
+            }
+            
+            db.collection('orders').doc(orderId).delete()
+                .then(() => {
+                    loadAllData();
+                    document.getElementById('delete-confirmation-modal').classList.remove('show');
+                    
+                    // Show success toast
+                    showToast('Order deleted successfully');
+                })
+                .catch(error => {
+                    console.error("Error deleting order:", error);
+                    showToast('Error deleting order', 'error');
+                });
+        }
+        
+        // Delete Booking
+        function deleteBooking(bookingId) {
+            if (!firebaseInitialized) {
+                // Mock delete for demo
+                const bookingIndex = mockConsultations.findIndex(b => b.id === bookingId);
+                if (bookingIndex !== -1) {
+                    mockConsultations.splice(bookingIndex, 1);
+                    renderBookingTable(mockConsultations);
+                    document.getElementById('delete-confirmation-modal').classList.remove('show');
+                    
+                    // Show success toast
+                    showToast('Booking deleted successfully');
+                }
+                return;
+            }
+            
+            db.collection('consultations').doc(bookingId).delete()
+                .then(() => {
+                    loadAllData();
+                    document.getElementById('delete-confirmation-modal').classList.remove('show');
+                    
+                    // Show success toast
+                    showToast('Booking deleted successfully');
+                })
+                .catch(error => {
+                    console.error("Error deleting booking:", error);
+                    showToast('Error deleting booking', 'error');
+                });
+        }
+        
+        // Export data to CSV
+        function exportToCSV(data, filename) {
+            // Convert data to CSV format
+            const csvContent = convertToCSV(data);
+            
+            // Create a download link
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast('Data exported successfully');
+        }
+        
+        // Convert data to CSV format
+        function convertToCSV(data) {
+            if (data.length === 0) {
+                return '';
+            }
+            
+            const headers = Object.keys(data[0]);
+            const csvRows = [];
+            
+            // Add headers
+            csvRows.push(headers.join(','));
+            
+            // Add rows
+            data.forEach(item => {
+                const values = headers.map(header => {
+                    const value = item[header];
+                    const escapedValue = value !== null && value !== undefined 
+                        ? String(value).replace(/"/g, '""') 
+                        : '';
+                    return `"${escapedValue}"`;
+                });
+                csvRows.push(values.join(','));
+            });
+            
+            return csvRows.join('\n');
+        }
+        
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg text-white ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} shadow-lg z-50 flex items-center`;
+            
+            // Add icon
+            const icon = document.createElement('i');
+            icon.className = `fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} mr-3`;
+            toast.appendChild(icon);
+            
+            // Add message
+            const text = document.createElement('span');
+            text.textContent = message;
+            toast.appendChild(text);
+            
+            // Add to document
+            document.body.appendChild(toast);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 500);
+            }, 3000);
+        }
+        
+        // Setup Navigation
+        function setupNavigation() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    
+                    // Hide all sections
+                    sections.forEach(section => {
+                        section.classList.add('hidden');
+                    });
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('bg-indigo-50', 'text-indigo-600');
+                        navLink.classList.add('text-gray-600', 'hover:bg-gray-50');
+                    });
+                    
+                    // Add active class to clicked link
+                    link.classList.remove('text-gray-600', 'hover:bg-gray-50');
+                    link.classList.add('bg-indigo-50', 'text-indigo-600');
+                    
+                    // Show the corresponding section
+                    const sectionId = link.getAttribute('href').substring(1);
+                    document.getElementById(`${sectionId}-section`).classList.remove('hidden');
+                    
+                    // Close sidebar on mobile
+                    if (window.innerWidth < 1024) {
+                        document.getElementById('sidebar').classList.remove('show');
+                        document.getElementById('sidebar-overlay').classList.remove('show');
+                    }
+                });
+            });
+        }
+        
+        // Toggle Sidebar on Mobile
+        function setupSidebarToggle() {
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+            
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('show');
+                sidebarOverlay.classList.toggle('show');
+            });
+            
+            sidebarOverlay.addEventListener('click', () => {
+                sidebar.classList.remove('show');
+                sidebarOverlay.classList.remove('show');
+            });
+        }
+        
+        // Setup modal close buttons
+        function setupModals() {
+            // Order details modal
+            document.getElementById('close-order-modal').addEventListener('click', () => {
+                document.getElementById('order-details-modal').classList.remove('show');
+            });
+            
+            document.getElementById('close-order-details').addEventListener('click', () => {
+                document.getElementById('order-details-modal').classList.remove('show');
+            });
+            
+            // Booking details modal
+            document.getElementById('close-booking-modal').addEventListener('click', () => {
+                document.getElementById('booking-details-modal').classList.remove('show');
+            });
+            
+            document.getElementById('close-booking-details').addEventListener('click', () => {
+                document.getElementById('booking-details-modal').classList.remove('show');
+            });
+            
+            // Delete confirmation modal
+            document.getElementById('cancel-delete-btn').addEventListener('click', () => {
+                document.getElementById('delete-confirmation-modal').classList.remove('show');
+            });
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', (e) => {
+                const orderModal = document.getElementById('order-details-modal');
+                const bookingModal = document.getElementById('booking-details-modal');
+                const deleteModal = document.getElementById('delete-confirmation-modal');
+                
+                if (e.target === orderModal) {
+                    orderModal.classList.remove('show');
+                }
+                
+                if (e.target === bookingModal) {
+                    bookingModal.classList.remove('show');
+                }
+                
+                if (e.target === deleteModal) {
+                    deleteModal.classList.remove('show');
+                }
+            });
+        }
+        
+        // Setup Export Buttons
+        function setupExportButtons() {
+            // Payment export button
+            document.getElementById('export-payments-btn').addEventListener('click', () => {
+                if (!firebaseInitialized) {
+                    exportToCSV(mockOrders, 'portfolio_pro_orders.csv');
+                    return;
+                }
+                
+                db.collection('orders').get()
+                    .then(snapshot => {
+                        const orders = snapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }));
+                        
+                        exportToCSV(orders, 'portfolio_pro_orders.csv');
+                    })
+                    .catch(error => {
+                        console.error("Error exporting orders:", error);
+                        showToast('Error exporting orders', 'error');
+                    });
+            });
+            
+            // Booking export button
+            document.getElementById('export-bookings-btn').addEventListener('click', () => {
+                if (!firebaseInitialized) {
+                    exportToCSV(mockConsultations, 'portfolio_pro_consultations.csv');
+                    return;
+                }
+                
+                db.collection('consultations').get()
+                    .then(snapshot => {
+                        const consultations = snapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }));
+                        
+                        exportToCSV(consultations, 'portfolio_pro_consultations.csv');
+                    })
+                    .catch(error => {
+                        console.error("Error exporting consultations:", error);
+                        showToast('Error exporting consultations', 'error');
+                    });
+            });
+        }
+        
+        // Setup Search Functionality
+        function setupSearch() {
+            // Payment search
+            document.getElementById('payment-search').addEventListener('input', e => {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                if (!firebaseInitialized) {
+                    const filteredOrders = mockOrders.filter(order => 
+                        order.name.toLowerCase().includes(searchTerm) ||
+                        order.mobile.toLowerCase().includes(searchTerm) ||
+                        order.email.toLowerCase().includes(searchTerm) ||
+                        order.id.toLowerCase().includes(searchTerm)
+                    );
+                    
+                    renderPaymentTable(filteredOrders);
+                    return;
+                }
+                
+                // In a real implementation, you'd use Firestore queries
+                // For simplicity, we'll reload all data and filter client-side
+                db.collection('orders').get()
+                    .then(snapshot => {
+                        const orders = snapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }));
+                        
+                        const filteredOrders = orders.filter(order => 
+                            order.name.toLowerCase().includes(searchTerm) ||
+                            order.mobile.toLowerCase().includes(searchTerm) ||
+                            (order.email && order.email.toLowerCase().includes(searchTerm)) ||
+                            order.id.toLowerCase().includes(searchTerm)
+                        );
+                        
+                        renderPaymentTable(filteredOrders);
+                    })
+                    .catch(error => {
+                        console.error("Error searching orders:", error);
+                    });
+            });
+            
+            // Booking search
+            document.getElementById('booking-search').addEventListener('input', e => {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                if (!firebaseInitialized) {
+                    const filteredBookings = mockConsultations.filter(booking => 
+                        booking.name.toLowerCase().includes(searchTerm) ||
+                        booking.mobile.toLowerCase().includes(searchTerm) ||
+                        booking.id.toLowerCase().includes(searchTerm)
+                    );
+                    
+                    renderBookingTable(filteredBookings);
+                    return;
+                }
+                
+                // In a real implementation, you'd use Firestore queries
+                // For simplicity, we'll reload all data and filter client-side
+                db.collection('consultations').get()
+                    .then(snapshot => {
+                        const consultations = snapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }));
+                        
+                        const filteredConsultations = consultations.filter(consultation => 
+                            consultation.name.toLowerCase().includes(searchTerm) ||
+                            consultation.mobile.toLowerCase().includes(searchTerm) ||
+                            consultation.id.toLowerCase().includes(searchTerm)
+                        );
+                        
+                        renderBookingTable(filteredConsultations);
+                    })
+                    .catch(error => {
+                        console.error("Error searching consultations:", error);
+                    });
+            });
+        }
+        
+        // Setup Filter Functionality
+        function setupFilters() {
+            // Payment filter
+            document.getElementById('payment-filter').addEventListener('change', e => {
+                const filterValue = e.target.value;
+                
+                if (!firebaseInitialized) {
+                    let filteredOrders = mockOrders;
+                    
+                    if (filterValue !== 'all') {
+                        filteredOrders = mockOrders.filter(order => order.status === filterValue);
+                    }
+                    
+                    renderPaymentTable(filteredOrders);
+                    return;
+                }
+                
+                // In a real implementation, you'd use Firestore queries
+                // For simplicity, we'll reload all data and filter client-side
+                db.collection('orders').get()
+                    .then(snapshot => {
+                        const orders = snapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }));
+                        
+                        let filteredOrders = orders;
+                        
+                        if (filterValue !== 'all') {
+                            filteredOrders = orders.filter(order => order.status === filterValue);
+                        }
+                        
+                        renderPaymentTable(filteredOrders);
+                    })
+                    .catch(error => {
+                        console.error("Error filtering orders:", error);
+                    });
+            });
+            
+            // Booking filter
+            document.getElementById('booking-filter').addEventListener('change', e => {
+                const filterValue = e.target.value;
+                
+                if (!firebaseInitialized) {
+                    let filteredBookings = mockConsultations;
+                    
+                    if (filterValue !== 'all') {
+                        filteredBookings = mockConsultations.filter(booking => booking.status === filterValue);
+                    }
+                    
+                    renderBookingTable(filteredBookings);
+                    return;
+                }
+                
+                // In a real implementation, you'd use Firestore queries
+                // For simplicity, we'll reload all data and filter client-side
+                db.collection('consultations').get()
+                    .then(snapshot => {
+                        const consultations = snapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }));
+                        
+                        let filteredConsultations = consultations;
+                        
+                        if (filterValue !== 'all') {
+                            filteredConsultations = consultations.filter(consultation => consultation.status === filterValue);
+                        }
+                        
+                        renderBookingTable(filteredConsultations);
+                    })
+                    .catch(error => {
+                        console.error("Error filtering consultations:", error);
+                    });
+            });
+        }
+        
+        // Setup Refresh Button
+        function setupRefreshButton() {
+            document.getElementById('refresh-btn').addEventListener('click', () => {
+                if (!firebaseInitialized) {
+                    // Just re-render with mock data
+                    renderDashboard(mockOrders, mockConsultations);
+                    renderPaymentTable(mockOrders);
+                    renderBookingTable(mockConsultations);
+                    
+                    showToast('Data refreshed successfully');
+                    return;
+                }
+                
+                loadAllData();
+                showToast('Data refreshed successfully');
+            });
+        }
+        
+        // Initialize all UI components
+        document.addEventListener('DOMContentLoaded', () => {
+            initFirebase();
+            setupNavigation();
+            setupSidebarToggle();
+            setupModals();
+            setupExportButtons();
+            setupSearch();
+            setupFilters();
+            setupRefreshButton();
+        });
+    </script>
+</body>
+</html>
