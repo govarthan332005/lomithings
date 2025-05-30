@@ -1374,7 +1374,7 @@ if (app === 'gpay') {
                 const upiId = 'reddy-yerramaddu@ptaxis';
                 const name = 'LomithingsDevops';
                 const desc = `Payment for ${plan === 'basic' ? 'Basic Portfolio' : plan === 'animated' ? 'Animated Portfolio' : 'Business Website'}`;
-                const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${price}&cu=INR&tn=${encodeURIComponent(desc)}`;
+                const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${price}`;
                 window.location.href = upiUrl;
             });
 
