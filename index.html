@@ -1355,15 +1355,15 @@ nav ul li a {
                     const desc = `Payment for ${plan === 'basic' ? 'Basic Portfolio' : plan === 'animated' ? 'Animated Portfolio' : 'Business Website'}`;
                   let paymentLink;
 // Generic UPI URL with all parameters properly encoded
-const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${encodeURIComponent(price)}&cu=INR&tn=${encodeURIComponent(desc)}`;
+const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${encodeURIComponent(price)}`;
 
 // Set payment link based on the app
 if (app === 'gpay') {
-    paymentLink = `tez://upi/pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${encodeURIComponent(price)}&cu=INR&tn=${encodeURIComponent(desc)}`;
+    paymentLink = `tez://upi/pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${encodeURIComponent(price)}`;
 } else if (app === 'phonepe') {
-    paymentLink = `phonepe://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${encodeURIComponent(price)}&cu=INR&tn=${encodeURIComponent(desc)}`;
+    paymentLink = `phonepe://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${encodeURIComponent(price)}`;
 } else if (app === 'paytm') {
-    paymentLink = `paytmmp://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${encodeURIComponent(price)}&cu=INR&tn=${encodeURIComponent(desc)}`;
+    paymentLink = `paytmmp://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${encodeURIComponent(price)}`;
 } else {
     paymentLink = upiUrl; // Default to generic UPI URL if no app is specified
 }
