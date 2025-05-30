@@ -917,14 +917,8 @@ nav ul li a {
                             <div class="mt-10">
                                 <p class="mb-4 opacity-80">Follow us on social media</p>
                                 <div class="flex space-x-4">
-                                    <a href="#" class="bg-white/20 w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/30 transition">
+                                    <a href="https://www.instagram.com/lomithings?igsh=bnc4NGlieHRpd3p1" class="bg-white/20 w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/30 transition">
                                         <i class="fab fa-instagram text-white"></i>
-                                    </a>
-                                    <a href="#" class="bg-white/20 w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/30 transition">
-                                        <i class="fab fa-facebook-f text-white"></i>
-                                    </a>
-                                    <a href="#" class="bg-white/20 w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/30 transition">
-                                        <i class="fab fa-twitter text-white"></i>
                                     </a>
                                 </div>
                             </div>
@@ -1010,17 +1004,8 @@ nav ul li a {
                     </div>
                     <p class="text-gray-400 mb-6">Professional portfolio(or)e-commerce websites for students and small businesses at affordable prices.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition">
+                        <a href="https://www.instagram.com/lomithings?igsh=bnc4NGlieHRpd3p1" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition">
                             <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition">
-                            <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>
                 </div>
@@ -1298,7 +1283,7 @@ nav ul li a {
             try {
                 if (typeof QRCode === 'undefined') await loadQRCodeLibrary();
                 qrcodeElement.innerHTML = '';
-                const upiId = '8688967845@upi';
+                const upiId = 'reddy-yerramaddu@ptaxis';
                 const name = 'LomithingsDevops';
                 const plan = sessionStorage.getItem('selectedPlan');
                 const desc = `Payment for ${plan === 'basic' ? 'Basic Portfolio' : plan === 'animated' ? 'Animated Portfolio' : 'Business Website'}`;
@@ -1365,7 +1350,7 @@ nav ul li a {
                     const app = e.currentTarget.dataset.app;
                     const price = sessionStorage.getItem('selectedPrice');
                     const plan = sessionStorage.getItem('selectedPlan');
-                    const upiId = '8688967845@upi';
+                    const upiId = 'reddy-yerramaddu@ptaxis';
                     const name = 'LomithingsDevops';
                     const desc = `Payment for ${plan === 'basic' ? 'Basic Portfolio' : plan === 'animated' ? 'Animated Portfolio' : 'Business Website'}`;
                     let paymentLink;
@@ -1385,7 +1370,7 @@ nav ul li a {
             document.getElementById('generic-upi-btn').addEventListener('click', () => {
                 const price = sessionStorage.getItem('selectedPrice');
                 const plan = sessionStorage.getItem('selectedPlan');
-                const upiId = '8688967845@upi';
+                const upiId = 'reddy-yerramaddu@ptaxis';
                 const name = 'LomithingsDevops';
                 const desc = `Payment for ${plan === 'basic' ? 'Basic Portfolio' : plan === 'animated' ? 'Animated Portfolio' : 'Business Website'}`;
                 const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${price}&cu=INR&tn=${encodeURIComponent(desc)}`;
