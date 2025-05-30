@@ -1286,8 +1286,7 @@ nav ul li a {
                 const upiId = 'reddy-yerramaddu@ptaxis';
                 const name = 'LomithingsDevops';
                 const plan = sessionStorage.getItem('selectedPlan');
-                const desc = `Payment for ${plan === 'basic' ? 'Basic Portfolio' : plan === 'animated' ? 'Animated Portfolio' : 'Business Website'}`;
-                const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&tn=${encodeURIComponent(desc)}`;
+                const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${amount}`;
                 new QRCode(qrcodeElement, {
                     text: upiUrl,
                     width: 192,
@@ -1352,7 +1351,6 @@ nav ul li a {
                     const plan = sessionStorage.getItem('selectedPlan');
                     const upiId = 'reddy-yerramaddu@ptaxis';
                     const name = 'LomithingsDevops';
-                    const desc = `Payment for ${plan === 'basic' ? 'Basic Portfolio' : plan === 'animated' ? 'Animated Portfolio' : 'Business Website'}`;
                   let paymentLink;
 // Generic UPI URL with all parameters properly encoded
 const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${encodeURIComponent(price)}`;
